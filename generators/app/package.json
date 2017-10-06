@@ -1,0 +1,7 @@
+{
+  "name": "generators",
+  "version": "0.0.1",
+  "dependencies": {
+    "webpack-react-template": "0.0.1"
+  }
+}
