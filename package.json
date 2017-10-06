@@ -1,0 +1,19 @@
+{
+  "name": "webpack-react-jest-generator",
+  "version": "0.0.1",
+  "description": "It's simplify generator for React applications, with support Jest as test runner and Enzyme",
+  "main": "index.js",
+  "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khaninD/generator-react-webpack-jest.git"
+  },
+  "author": "Khanin Daniil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khaninD/generator-react-webpack-jest/issues"
+  },
+  "homepage": "https://github.com/khaninD/generator-react-webpack-jest#readme"
+}
