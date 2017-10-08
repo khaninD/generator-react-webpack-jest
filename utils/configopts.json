@@ -1,0 +1,151 @@
+{
+  "path": {
+    "options": [
+      {
+        "name": "base",
+        "path": "src"
+      },
+      {
+        "name": "action",
+        "path": "src/actions"
+      },
+      {
+        "name": "component",
+        "path": "src/components"
+      },
+      {
+        "name": "image",
+        "path": "src/images"
+      },
+      {
+        "name": "source",
+        "path": "src/sources"
+      },
+      {
+        "name": "store",
+        "path": "src/stores"
+      },
+      {
+        "name": "style",
+        "path": "src/styles"
+      },
+      {
+        "name": "test",
+        "path": "test"
+      },
+      {
+        "name": "dist",
+        "path": "dist"
+      }
+    ]
+  },
+  "inlineStyleTools": {
+    "options": [
+      {
+        "name": "radium",
+        "value": "radium",
+        "packages": [
+          { "name": "radium", "version": "^0.19.5" }
+        ]
+      },
+      {
+        "name": "reactcss",
+        "value": "reactcss",
+        "packages": [
+          { "name": "reactcss", "version": "^1.2.3" }
+        ]
+      }
+    ],
+    "default": "radium"
+  },
+  "postcss": {
+    "options": [
+      {
+        "name": "postcss",
+        "value": "postcss",
+        "packages": [
+          { "name": "postcss", "version": "^5.0.21" },
+          { "name": "postcss-loader", "version": "^2.0.6" }
+        ]
+      }
+    ]
+  },
+  "cssmodules": {
+    "options": [
+      {
+        "name": "cssmodules",
+        "value": "cssmodules",
+        "packages": [
+          { "name": "react-css-modules", "version": "^3.7.10" }
+        ]
+      }
+    ]
+  },
+  "cssnext": {
+    "options": [
+      {
+        "name": "cssnext",
+        "value": "cssnext",
+        "packages": [
+          { "name": "postcss-cssnext", "version": "^3.0.2" },
+          { "name": "postcss-loader", "version": "^2.0.6" }
+        ]
+      }
+    ]
+  },
+  "style": {
+    "options": [
+      {
+        "name": "css",
+        "value": "css",
+        "suffix": ".css"
+      },
+      {
+        "name": "sass",
+        "value": "sass",
+        "suffix": ".sass",
+        "packages": [
+          { "name": "sass-loader", "version": "^3.2.0" },
+          { "name": "node-sass", "version": "^3.7.0" }
+        ]
+      },
+      {
+        "name": "scss",
+        "value": "scss",
+        "suffix": ".scss",
+        "packages": [
+          { "name": "sass-loader", "version": "^3.2.0" },
+          { "name": "node-sass", "version": "^3.7.0" }
+        ]
+      },
+      {
+        "name": "less",
+        "value": "less",
+        "suffix": ".less",
+        "packages": [
+          { "name": "less-loader", "version": "^2.2.3" },
+          { "name": "less", "version": "^2.7.1" }
+        ]
+      },
+      {
+        "name": "stylus",
+        "value": "stylus",
+        "suffix": ".styl",
+        "packages": [
+          { "name": "stylus-loader", "version": "^2.1.0" },
+          { "name": "stylus", "version": "^0.54.5" },
+          { "name": "nib", "version": "~1.1.0" }
+        ]
+      },
+      {
+        "name": "myth",
+        "value": "myth",
+        "suffix": ".css",
+        "packages": [
+          { "name": "myth-webpack-loader", "version": "^1.0.1" }
+        ]
+      }
+    ],
+    "default": "css"
+  }
+}

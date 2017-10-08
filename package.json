@@ -3,7 +3,12 @@
   "version": "0.0.1",
   "description": "It's simplify generator for React applications, with support Jest as test runner and Enzyme",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "lerna bootstrap",
+    "lint": "eslint ./generators/* --ext .js --ext .jsx --ignore-path .gitignore",
+    "pretest": "yarn lint --cache",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -24,10 +29,24 @@
     "eslint-plugin-react": "^7.4.0",
     "jest": "^21.2.1",
     "lerna": "^2.4.0",
-    "webpack": "^3.6.0"
+    "webpack": "^3.6.0",
+    "yeoman-assert": "^3.1.0",
+    "yeoman-test": "^1.7.0"
   },
   "dependencies": {
     "underscore.string": "^3.3.4",
     "yeoman-generator": "^2.0.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "test/**/*.js"
+    ],
+    "roots": [
+      "<rootDir>/test"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/*.test.js"
+    ]
   }
 }
