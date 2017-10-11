@@ -10,6 +10,9 @@
   ],
   "rules": {
     "linebreak-style": 0,
+    "valid-jsdoc": ["error", {
+      "requireReturn": false
+    }],
     "comma-dangle": ["error", "never"],
     "react/jsx-curly-spacing": 0,
     "react/forbid-prop-types": 0,
