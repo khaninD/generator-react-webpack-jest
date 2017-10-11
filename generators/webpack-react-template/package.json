@@ -4,7 +4,6 @@
   "description": "",
   "main": "",
   "scripts": {
-    "postinstall": "lerna bootstrap",
     "lint": "eslint ./* --ext .js --ext .jsx --ignore-path .gitignore",
     "pretest": "yarn lint --cache",
     "test": "jest",

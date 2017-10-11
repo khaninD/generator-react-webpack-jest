@@ -36,7 +36,6 @@ describe('react-webpack:app', () => {
     }));
 
     it ('should be app name === my-app', () => {
-      console.log(generator.appName);
       expect(generator.appName).toBe('my-app');
     });
 
@@ -79,12 +78,6 @@ describe('react-webpack:app', () => {
   describe('create files', () => {
     it('should generate project configuration file', () => {
       assert.file(['package.json']);
-    });
-  });
-
-  describe('configuring', () => {
-    it('should add css module support', () => {
-      assert.fileContent('package.json', 'react-css-modules');
     });
   });
 
