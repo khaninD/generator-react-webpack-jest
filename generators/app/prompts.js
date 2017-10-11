@@ -10,7 +10,8 @@ module.exports = {
     {
       type    : 'confirm',
       name    : 'inlineStyleTool',
-      message : 'Enable inline styles tools as Radium or ReactCss?'
+      message : 'Enable inline styles tools as Radium or ReactCss?',
+      default: false
     }
   ],
   secondPrompt: {
@@ -30,18 +31,20 @@ module.exports = {
     },
     {
       type    : 'confirm',
-      name    : 'styleModule',
+      name    : 'cssmodules',
       message : 'Enable css module support? See https://github.com/gajus/react-css-modules for further info'
     },
     {
       type    : 'confirm',
       name    : 'postcss',
-      message : 'Enable postcss?'
+      message : 'Enable postcss?',
+      default: false
     },
     {
       type    : 'confirm',
       name    : 'cssnext',
-      message : 'Enable cssnext?'
+      message : 'Enable cssnext?',
+      default: false
     }
   ]
 };
