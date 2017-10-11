@@ -36,6 +36,7 @@ describe('react-webpack:app', () => {
     }));
 
     it ('should be app name === my-app', () => {
+      console.log(generator.appName);
       expect(generator.appName).toBe('my-app');
     });
 
@@ -55,23 +56,41 @@ describe('react-webpack:app', () => {
     });
 
     it('should use "inlineStyleTool"', () => {
-      expect(generator.inlineStyleTool).toBeTruthy();
+      expect(generator.inlineStyleTool).toBeFalsy();
     });
 
     it('should use "Radium" as inlineStyleTools', () => {
-      expect(generator.inlineStyleTools).toBe('radium');
+      expect(generator.inlineStyleTools).toBeUndefined();
     });
 
     it('should be postcss support', () => {
-      expect(generator.postcss).toBeTruthy();
+      expect(generator.postcss).toBeFalsy();
     });
 
     it('should be css module support', () => {
-      expect(generator.styleModule).toBeTruthy();
+      expect(generator.cssmodules).toBeTruthy();
     });
 
     it('should be cssnext support', () => {
-      expect(generator.cssnext).toBeTruthy();
+      expect(generator.cssnext).toBeFalsy();
+    });
+  });
+
+  describe('create files', () => {
+    it('should generate project configuration file', () => {
+      assert.file(['package.json']);
+    });
+  });
+
+  describe('configuring', () => {
+    it('should add css module support', () => {
+      assert.fileContent('package.json', 'react-css-modules');
+    });
+  });
+
+  describe('configuring', () => {
+    it('should add css module support', () => {
+      assert.fileContent('package.json', 'react-css-modules');
     });
   });
 });
