@@ -45,14 +45,8 @@
         "name": "radium",
         "value": "radium",
         "packages": [
-          { "name": "radium", "version": "^0.19.5" }
-        ]
-      },
-      {
-        "name": "reactcss",
-        "value": "reactcss",
-        "packages": [
-          { "name": "reactcss", "version": "^1.2.3" }
+          { "name": "radium", "version": "^0.19.5" },
+          { "name": "color", "version": "*"}
         ]
       }
     ],
@@ -74,7 +68,7 @@
     "options": [
       {
         "name": "cssmodules",
-        "value": "cssmodules",
+        "value": "react-css-modules",
         "packages": [
           { "name": "react-css-modules", "version": "^3.7.10" }
         ]
