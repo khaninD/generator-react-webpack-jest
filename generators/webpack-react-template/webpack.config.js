@@ -18,6 +18,10 @@ module.exports = {
   entry: {
     app: './src/index.js'
   },
+  output: {
+    filename: 'js/[name].bundle.js',
+    path: path.resolve(__dirname, './dist')
+  },
   module: {
     rules: [
       {
@@ -33,7 +37,28 @@ module.exports = {
           },
           {
             loader: 'css-loader',
-            modules: true
+            options: {
+              modules: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          {
+            loader: 'file-loader'
           }
         ]
       }
@@ -45,9 +70,5 @@ module.exports = {
       title: `${env} - build`,
       template: 'src/index.html'
     })
-  ],
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, './dist')
-  }
+  ]
 };
