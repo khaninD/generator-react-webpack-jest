@@ -149,6 +149,11 @@ module.exports = class extends Generator {
               this.__copyFromExamples(file, 'react-css-modules-example.js', 'index.js');
               this.__copyFromExamples(file, 'react-css-modules-example.css', 'main.css')
             }
+
+            if (this.style === 'sass') {
+              this.__copyFromExamples(file, 'sass-example.js', 'index.js');
+              this.__copyFromExamples(file, 'sass-example.css', 'main.sass')
+            }
           }
           ncp(fullPath, file);
         } else {

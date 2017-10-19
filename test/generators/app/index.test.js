@@ -49,7 +49,8 @@ describe('react-webpack:app', () => {
     beforeEach(() => beforeLoad({
       inlineStyleTool: true,
       inlineStyleTools: 'radium',
-      cssmodules: true
+      cssmodules: true,
+      style: 'sass'
     }));
 
     it('should be use inlineStyleTool', () => {
@@ -66,6 +67,14 @@ describe('react-webpack:app', () => {
 
     it('should add reactcss modules  support', () => {
       assert.fileContent('package.json', 'react-css-modules');
+    });
+
+    it('should be use sass', () => {
+      expect(generator.style).toBe('sass');
+    });
+
+    it('should add sass-loader  support', () => {
+      assert.fileContent('package.json', 'sass-loader');
     });
 
   });
