@@ -4,8 +4,8 @@ const fs = require('fs');
 const { mkdirsSync } = require('mkdir');
 const { ncp } = require('ncp');
 const utils = require('../../utils/all');
-const { firstPrompt, secondPrompt, thirdPrompt } = require('./prompts');
-const baseRootPath = path.dirname(require.resolve('webpack-react-template'));
+const {firstPrompt, secondPrompt, thirdPrompt} = require('./prompts');
+const baseRootPath = path.dirname(require.resolve('../webpack-react-template'));
 
 module.exports = class extends Generator {
   constructor(args, opts) {
