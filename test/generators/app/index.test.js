@@ -22,27 +22,52 @@ const beforeLoad = (customPrompts) => {
     .withPrompts(customPrompts)
     .on('ready', function(instance) {
       generator = instance;
-    })
-    .toPromise();
+    });
 };
 
 describe('react-webpack:app', () => {
+
   beforeEach(() => beforeLoad());
 
   describe('test config with customPrompts', () => {
     beforeEach(() => beforeLoad({
-      appName: 'myApp',
+      appName: 'my-react-app',
       inlineStyleTool: false
     }));
 
-    it ('should be app name === my-app', () => {
-      expect(generator.appName).toBe('my-app');
+    it ('should be app name === my-react-app', () => {
+      expect(generator.appName).toBe('my-react-app');
     });
 
     it('should be not use inlineStyleTools', () => {
       expect(generator.inlineStyleTool).toBeFalsy();
       expect(generator.inlineStyleTools).toBeUndefined();
     });
+  });
+
+  describe('test config with customPrompts', () => {
+    beforeEach(() => beforeLoad({
+      inlineStyleTool: true,
+      inlineStyleTools: 'radium',
+      cssmodules: true
+    }));
+
+    it('should be use inlineStyleTool', () => {
+      expect(generator.inlineStyleTool).toBeTruthy();
+    });
+
+    it('should be use inlineStyleTools', () => {
+      expect(generator.inlineStyleTools).toBe('radium');
+    });
+
+    it('should add react style support', () => {
+      assert.fileContent('package.json', 'radium');
+    });
+
+    it('should add reactcss modules  support', () => {
+      assert.fileContent('package.json', 'react-css-modules');
+    });
+
   });
 
   describe('test config with defaults props', () => {
@@ -62,12 +87,12 @@ describe('react-webpack:app', () => {
       expect(generator.inlineStyleTools).toBeUndefined();
     });
 
-    it('should be postcss support', () => {
+    it('should be not support postcss', () => {
       expect(generator.postcss).toBeFalsy();
     });
 
-    it('should be css module support', () => {
-      expect(generator.cssmodules).toBeTruthy();
+    it('should be not support module ', () => {
+      expect(generator.cssmodules).toBeFalsy();
     });
 
     it('should be cssnext support', () => {
@@ -76,14 +101,16 @@ describe('react-webpack:app', () => {
   });
 
   describe('create files', () => {
-    it('should generate project configuration file', () => {
-      assert.file(['package.json']);
-    });
-  });
-
-  describe('configuring', () => {
-    it('should add css module support', () => {
-      assert.fileContent('package.json', 'react-css-modules');
+    it('should generate project configuration files and directories', () => {
+      assert.file(['package.json',
+        '.babelrc',
+        '.eslintrc',
+        'server.js',
+        '.gitignore',
+        'webpack.config.js',
+        'src',
+        'webpack_cfg'
+      ]);
     });
   });
 });
