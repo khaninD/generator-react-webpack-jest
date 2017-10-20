@@ -151,12 +151,16 @@ module.exports = class extends Generator {
             if (this.style === 'sass') {
               this.__copyFromExamples(file, 'sass-example.sass', 'main.sass')
             } else if(this.style === 'css') {
-              this.__copyFromExamples(file, 'react-css-modules-example.css', 'main.css')
+              this.__copyFromExamples(file, 'example.css', 'main.css')
+            } else if(this.style === 'scss') {
+              this.__copyFromExamples(file, 'scss-example.scss', 'main.scss')
             }
             if (this.cssmodules && this.style === 'css') {
               this.__copyFromExamples(file, 'react-css-modules-example.js', 'index.js');
             } else if (this.cssmodules && this.style === 'sass') {
               this.__copyFromExamples(file, 'sass-reactcssmodules-example.js', 'index.js');
+            } else if (this.cssmodules && this.style === 'scss') {
+              this.__copyFromExamples(file, 'scss-reactcssmodules-example.js', 'index.js');
             }
           }
           ncp(fullPath, file);

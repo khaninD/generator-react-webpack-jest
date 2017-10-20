@@ -81,6 +81,28 @@ describe('react-webpack:app', () => {
     it('should add sass-loader  support', () => {
       assert.fileContent('package.json', 'sass-loader');
     });
+
+    it('should add sass-loader  support', () => {
+      assert.fileContent('src/index.js', 'import styles from \'./main.sass\';');
+    });
+
+    describe('test config with SCSS styles', () => {
+      beforeEach(() => beforeLoad({
+        style: 'scss',
+        cssmodules: true
+      }));
+      it('should be use scsss', () => {
+        expect(generator.style).toBe('scss');
+      });
+
+      it('should add sass-loader  support', () => {
+        assert.fileContent('package.json', 'sass-loader');
+      });
+
+      it('should add scss-loader  support', () => {
+        assert.fileContent('src/index.js', 'import styles from \'./main.scss\';');
+      });
+    })
   });
 
   describe('test config with defaults props', () => {
