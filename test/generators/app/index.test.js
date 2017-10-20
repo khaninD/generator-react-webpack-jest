@@ -70,7 +70,7 @@ describe('react-webpack:app', () => {
       cssmodules: true
     }));
 
-    it('should add reactcss modules  support', () => {
+    it('should add reactcss modules support', () => {
       assert.fileContent('package.json', 'react-css-modules');
     });
 
@@ -78,8 +78,8 @@ describe('react-webpack:app', () => {
       expect(generator.style).toBe('sass');
     });
 
-    it('create main.sass file', () => {
-      assert.file(['src/main.sass']);
+    it('cretae file main.sass', () => {
+      assert.file('src/styles/main.sass');
     });
 
     it('should add sass-loader  support', () => {
@@ -99,8 +99,8 @@ describe('react-webpack:app', () => {
         expect(generator.style).toBe('scss');
       });
 
-      it('create main.scss file', () => {
-        assert.file(['src/main.scss']);
+      it('cretae file main.scss', () => {
+        assert.file('src/styles/main.scss');
       });
 
       it('should add sass-loader  support', () => {
@@ -122,7 +122,7 @@ describe('react-webpack:app', () => {
       });
 
       it('create main.less file', () => {
-        assert.file(['src/main.less']);
+        assert.file('src/styles/main.less');
       });
 
       it('should add sass-loader  support', () => {
@@ -142,6 +142,10 @@ describe('react-webpack:app', () => {
 
     it('should use "css" as default style language', () => {
       expect(generator.style).toBe('css');
+    });
+
+    it('cretae file main.scss', () => {
+      assert.file('src/styles/main.css');
     });
 
     it('should use "inlineStyleTool"', () => {

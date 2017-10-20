@@ -150,13 +150,13 @@ module.exports = class extends Generator {
             }
             // @TODO give paths from array path
             if (this.style === 'sass') {
-              this.__copyFromExamples(file, 'styles/sass-example.sass', 'main.sass')
+              this.__copyFromExamples(file, 'styles/sass-example.sass', 'styles/main.sass')
             } else if(this.style === 'css') {
-              this.__copyFromExamples(file, 'styles/example.css', 'main.css')
+              this.__copyFromExamples(file, 'styles/example.css', 'styles/main.css')
             } else if(this.style === 'scss') {
-              this.__copyFromExamples(file, 'styles/scss-example.scss', 'main.scss')
+              this.__copyFromExamples(file, 'styles/scss-example.scss', 'styles/main.scss')
             } else if(this.style === 'less') {
-              this.__copyFromExamples(file, 'styles/less-example.less', 'main.less')
+              this.__copyFromExamples(file, 'styles/less-example.less', 'styles/main.less')
             }
             if (this.cssmodules) {
               if (this.style === 'css') {
