@@ -146,21 +146,32 @@ module.exports = class extends Generator {
           if (file === 'src') {
             // @TODO give out of in helper function
             if (this.inlineStyleTools) {
-              this.__copyFromExamples(file, `${this.inlineStyleTools}-example.js`, 'index.js')
+              this.__copyFromExamples(file, `js/${this.inlineStyleTools}-example.js`, 'index.js')
             }
+            // @TODO give paths from array path
             if (this.style === 'sass') {
-              this.__copyFromExamples(file, 'sass-example.sass', 'main.sass')
+              this.__copyFromExamples(file, 'styles/sass-example.sass', 'main.sass')
             } else if(this.style === 'css') {
-              this.__copyFromExamples(file, 'example.css', 'main.css')
+              this.__copyFromExamples(file, 'styles/example.css', 'main.css')
             } else if(this.style === 'scss') {
-              this.__copyFromExamples(file, 'scss-example.scss', 'main.scss')
+              this.__copyFromExamples(file, 'styles/scss-example.scss', 'main.scss')
             }
-            if (this.cssmodules && this.style === 'css') {
-              this.__copyFromExamples(file, 'react-css-modules-example.js', 'index.js');
-            } else if (this.cssmodules && this.style === 'sass') {
-              this.__copyFromExamples(file, 'sass-reactcssmodules-example.js', 'index.js');
-            } else if (this.cssmodules && this.style === 'scss') {
-              this.__copyFromExamples(file, 'scss-reactcssmodules-example.js', 'index.js');
+            if (this.cssmodules) {
+              if (this.style === 'css') {
+                this.__copyFromExamples(file, 'css-modules/sass/css.js', 'index.js');
+              } else if (this.style === 'sass') {
+                this.__copyFromExamples(file, 'css-modules/sass/sass.js', 'index.js');
+              } else if (this.style === 'scss') {
+                this.__copyFromExamples(file, 'css-modules/sass/scss.js', 'index.js');
+              }
+            } else {
+              if (this.style === 'css') {
+                this.__copyFromExamples(file, 'js/example.js', 'index.js');
+              } else if (this.style === 'sass') {
+                this.__copyFromExamples(file, 'js/sass-example.js', 'index.js');
+              } else if (this.style === 'scss') {
+                this.__copyFromExamples(file, 'js/scss-example.js', 'index.js');
+              }
             }
           }
           ncp(fullPath, file);
