@@ -185,7 +185,6 @@ module.exports = class extends Generator {
             } else {
               this.__copyFromExamples(file, 'loaders/loaders.js', 'loaders.js');
             }
-            continue;
           }
           ncp(fullPath, file);
         } else {
