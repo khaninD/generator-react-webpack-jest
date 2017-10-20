@@ -21,6 +21,32 @@ module.exports = () => {
         ]
       },
       {
+        test: /\.(scss|sass)$/,
+        use: [{
+          loader: 'style-loader'
+        }, {
+          loader: 'css-loader',
+          options: {
+            modules: true
+          }
+        }, {
+          loader: 'sass-loader'
+        }]
+      },
+      {
+        test: /\.less$/,
+        use: [{
+          loader: "style-loader"
+        }, {
+          loader: "css-loader",
+          options: {
+            modules: true
+          }
+        }, {
+          loader: "less-loader"
+        }]
+      },
+      {
         test: /\.(png|jpg|gif|svg)$/,
         use: [
           {
