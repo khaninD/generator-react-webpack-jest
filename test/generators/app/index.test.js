@@ -45,12 +45,10 @@ describe('react-webpack:app', () => {
     });
   });
 
-  describe('test config with customPrompts', () => {
+  describe('test config with customPrompts **IINLINE STYLE**', () => {
     beforeEach(() => beforeLoad({
       inlineStyleTool: true,
-      inlineStyleTools: 'radium',
-      cssmodules: true,
-      style: 'sass'
+      inlineStyleTools: 'radium'
     }));
 
     it('should be use inlineStyleTool', () => {
@@ -64,6 +62,13 @@ describe('react-webpack:app', () => {
     it('should add react style support', () => {
       assert.fileContent('package.json', 'radium');
     });
+  });
+
+  describe('test config with customPrompts ** STYLES ** ', () => {
+    beforeEach(() => beforeLoad({
+      style: 'sass',
+      cssmodules: true
+    }));
 
     it('should add reactcss modules  support', () => {
       assert.fileContent('package.json', 'react-css-modules');
@@ -76,7 +81,6 @@ describe('react-webpack:app', () => {
     it('should add sass-loader  support', () => {
       assert.fileContent('package.json', 'sass-loader');
     });
-
   });
 
   describe('test config with defaults props', () => {

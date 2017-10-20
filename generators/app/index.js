@@ -34,12 +34,14 @@ module.exports = class extends Generator {
         });
       }
     }).then(() => {
-      return this.prompt(thirdPrompt).then((answers) => {
-        this.style = answers.style;
-        this.cssmodules = answers.cssmodules;
-        this.postcss = answers.postcss;
-        this.cssnext = answers.cssnext;
-      });
+      if (!this.inlineStyleTools) {
+        return this.prompt(thirdPrompt).then((answers) => {
+          this.style = answers.style;
+          this.cssmodules = answers.cssmodules;
+          this.postcss = answers.postcss;
+          this.cssnext = answers.cssnext;
+        });
+      }
     })
   }
 
@@ -142,17 +144,19 @@ module.exports = class extends Generator {
         const checkDirectory = fs.statSync(fullPath).isDirectory();
         if (checkDirectory) {
           if (file === 'src') {
+            // @TODO give out of in helper function
             if (this.inlineStyleTools) {
               this.__copyFromExamples(file, `${this.inlineStyleTools}-example.js`, 'index.js')
             }
-            if (this.cssmodules) {
-              this.__copyFromExamples(file, 'react-css-modules-example.js', 'index.js');
+            if (this.style === 'sass') {
+              this.__copyFromExamples(file, 'sass-example.sass', 'main.sass')
+            } else if(this.style === 'css') {
               this.__copyFromExamples(file, 'react-css-modules-example.css', 'main.css')
             }
-
-            if (this.style === 'sass') {
-              this.__copyFromExamples(file, 'sass-example.js', 'index.js');
-              this.__copyFromExamples(file, 'sass-example.css', 'main.sass')
+            if (this.cssmodules && this.style === 'css') {
+              this.__copyFromExamples(file, 'react-css-modules-example.js', 'index.js');
+            } else if (this.cssmodules && this.style === 'sass') {
+              this.__copyFromExamples(file, 'sass-reactcssmodules-example.js', 'index.js');
             }
           }
           ncp(fullPath, file);
