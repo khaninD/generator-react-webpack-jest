@@ -155,6 +155,8 @@ module.exports = class extends Generator {
               this.__copyFromExamples(file, 'styles/example.css', 'main.css')
             } else if(this.style === 'scss') {
               this.__copyFromExamples(file, 'styles/scss-example.scss', 'main.scss')
+            } else if(this.style === 'less') {
+              this.__copyFromExamples(file, 'styles/less-example.less', 'main.scss')
             }
             if (this.cssmodules) {
               if (this.style === 'css') {
@@ -163,6 +165,8 @@ module.exports = class extends Generator {
                 this.__copyFromExamples(file, 'css-modules/sass/sass.js', 'index.js');
               } else if (this.style === 'scss') {
                 this.__copyFromExamples(file, 'css-modules/sass/scss.js', 'index.js');
+              } else if (this.style === 'less') {
+                this.__copyFromExamples(file, 'css-modules/less/less.js', 'index.js');
               }
             } else {
               if (this.style === 'css') {
@@ -171,6 +175,8 @@ module.exports = class extends Generator {
                 this.__copyFromExamples(file, 'js/sass-example.js', 'index.js');
               } else if (this.style === 'scss') {
                 this.__copyFromExamples(file, 'js/scss-example.js', 'index.js');
+              } else if (this.style === 'less') {
+                this.__copyFromExamples(file, 'js/less-example.js', 'index.js');
               }
             }
           }

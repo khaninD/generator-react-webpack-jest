@@ -103,6 +103,24 @@ describe('react-webpack:app', () => {
         assert.fileContent('src/index.js', 'import styles from \'./main.scss\';');
       });
     })
+
+    describe('test config with SCSS styles', () => {
+      beforeEach(() => beforeLoad({
+        style: 'less',
+        cssmodules: true
+      }));
+      it('should be use less', () => {
+        expect(generator.style).toBe('less');
+      });
+
+      it('should add sass-loader  support', () => {
+        assert.fileContent('package.json', 'less-loader');
+      });
+
+      it('should add scss-loader  support', () => {
+        assert.fileContent('src/index.js', 'import styles from \'./main.less\';');
+      });
+    })
   });
 
   describe('test config with defaults props', () => {
