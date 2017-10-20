@@ -61,8 +61,34 @@ module.exports = {
             loader: 'file-loader'
           }
         ]
+      },
+      {
+        test: /\.(scss|sass)$/,
+        use: [{
+          loader: 'style-loader'
+        }, {
+          loader: 'css-loader',
+          options: {
+            modules: true
+          }
+        }, {
+          loader: 'sass-loader'
+        }]
+      },
+      {
+        test: /\.less$/,
+        use: [{
+          loader: "style-loader"
+        }, {
+          loader: "css-loader",
+          options: {
+            modules: true
+          }
+        }, {
+          loader: "less-loader"
+        }]
       }
-    ]
+      ]
   },
   plugins: [
     new CleanWebpackPlugin(pathsToClean, cleanOptions),

@@ -45,11 +45,10 @@ describe('react-webpack:app', () => {
     });
   });
 
-  describe('test config with customPrompts', () => {
+  describe('test config with customPrompts **IINLINE STYLE**', () => {
     beforeEach(() => beforeLoad({
       inlineStyleTool: true,
-      inlineStyleTools: 'radium',
-      cssmodules: true
+      inlineStyleTools: 'radium'
     }));
 
     it('should be use inlineStyleTool', () => {
@@ -63,11 +62,47 @@ describe('react-webpack:app', () => {
     it('should add react style support', () => {
       assert.fileContent('package.json', 'radium');
     });
+  });
+
+  describe('test config with customPrompts ** STYLES ** ', () => {
+    beforeEach(() => beforeLoad({
+      style: 'sass',
+      cssmodules: true
+    }));
 
     it('should add reactcss modules  support', () => {
       assert.fileContent('package.json', 'react-css-modules');
     });
 
+    it('should be use sass', () => {
+      expect(generator.style).toBe('sass');
+    });
+
+    it('should add sass-loader  support', () => {
+      assert.fileContent('package.json', 'sass-loader');
+    });
+
+    it('should add sass-loader  support', () => {
+      assert.fileContent('src/index.js', 'import styles from \'./main.sass\';');
+    });
+
+    describe('test config with SCSS styles', () => {
+      beforeEach(() => beforeLoad({
+        style: 'scss',
+        cssmodules: true
+      }));
+      it('should be use scsss', () => {
+        expect(generator.style).toBe('scss');
+      });
+
+      it('should add sass-loader  support', () => {
+        assert.fileContent('package.json', 'sass-loader');
+      });
+
+      it('should add scss-loader  support', () => {
+        assert.fileContent('src/index.js', 'import styles from \'./main.scss\';');
+      });
+    })
   });
 
   describe('test config with defaults props', () => {

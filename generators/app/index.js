@@ -34,12 +34,14 @@ module.exports = class extends Generator {
         });
       }
     }).then(() => {
-      return this.prompt(thirdPrompt).then((answers) => {
-        this.style = answers.style;
-        this.cssmodules = answers.cssmodules;
-        this.postcss = answers.postcss;
-        this.cssnext = answers.cssnext;
-      });
+      if (!this.inlineStyleTools) {
+        return this.prompt(thirdPrompt).then((answers) => {
+          this.style = answers.style;
+          this.cssmodules = answers.cssmodules;
+          this.postcss = answers.postcss;
+          this.cssnext = answers.cssnext;
+        });
+      }
     })
   }
 
@@ -142,12 +144,34 @@ module.exports = class extends Generator {
         const checkDirectory = fs.statSync(fullPath).isDirectory();
         if (checkDirectory) {
           if (file === 'src') {
+            // @TODO give out of in helper function
             if (this.inlineStyleTools) {
-              this.__copyFromExamples(file, `${this.inlineStyleTools}-example.js`, 'index.js')
+              this.__copyFromExamples(file, `js/${this.inlineStyleTools}-example.js`, 'index.js')
+            }
+            // @TODO give paths from array path
+            if (this.style === 'sass') {
+              this.__copyFromExamples(file, 'styles/sass-example.sass', 'main.sass')
+            } else if(this.style === 'css') {
+              this.__copyFromExamples(file, 'styles/example.css', 'main.css')
+            } else if(this.style === 'scss') {
+              this.__copyFromExamples(file, 'styles/scss-example.scss', 'main.scss')
             }
             if (this.cssmodules) {
-              this.__copyFromExamples(file, 'react-css-modules-example.js', 'index.js');
-              this.__copyFromExamples(file, 'react-css-modules-example.css', 'main.css')
+              if (this.style === 'css') {
+                this.__copyFromExamples(file, 'css-modules/sass/css.js', 'index.js');
+              } else if (this.style === 'sass') {
+                this.__copyFromExamples(file, 'css-modules/sass/sass.js', 'index.js');
+              } else if (this.style === 'scss') {
+                this.__copyFromExamples(file, 'css-modules/sass/scss.js', 'index.js');
+              }
+            } else {
+              if (this.style === 'css') {
+                this.__copyFromExamples(file, 'js/example.js', 'index.js');
+              } else if (this.style === 'sass') {
+                this.__copyFromExamples(file, 'js/sass-example.js', 'index.js');
+              } else if (this.style === 'scss') {
+                this.__copyFromExamples(file, 'js/scss-example.js', 'index.js');
+              }
             }
           }
           ncp(fullPath, file);
