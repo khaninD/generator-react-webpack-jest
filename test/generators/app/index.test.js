@@ -78,6 +78,10 @@ describe('react-webpack:app', () => {
       expect(generator.style).toBe('sass');
     });
 
+    it('create main.sass file', () => {
+      assert.file(['src/main.sass']);
+    });
+
     it('should add sass-loader  support', () => {
       assert.fileContent('package.json', 'sass-loader');
     });
@@ -91,8 +95,12 @@ describe('react-webpack:app', () => {
         style: 'scss',
         cssmodules: true
       }));
-      it('should be use scsss', () => {
+      it('should be use scss', () => {
         expect(generator.style).toBe('scss');
+      });
+
+      it('create main.scss file', () => {
+        assert.file(['src/main.scss']);
       });
 
       it('should add sass-loader  support', () => {
@@ -101,6 +109,28 @@ describe('react-webpack:app', () => {
 
       it('should add scss-loader  support', () => {
         assert.fileContent('src/index.js', 'import styles from \'./main.scss\';');
+      });
+    })
+
+    describe('test config with LESS styles', () => {
+      beforeEach(() => beforeLoad({
+        style: 'less',
+        cssmodules: true
+      }));
+      it('should be use less', () => {
+        expect(generator.style).toBe('less');
+      });
+
+      it('create main.less file', () => {
+        assert.file(['src/main.less']);
+      });
+
+      it('should add sass-loader  support', () => {
+        assert.fileContent('package.json', 'less-loader');
+      });
+
+      it('should add scss-loader  support', () => {
+        assert.fileContent('src/index.js', 'import styles from \'./main.less\';');
       });
     })
   });
