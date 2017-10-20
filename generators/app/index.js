@@ -156,7 +156,7 @@ module.exports = class extends Generator {
             } else if(this.style === 'scss') {
               this.__copyFromExamples(file, 'styles/scss-example.scss', 'main.scss')
             } else if(this.style === 'less') {
-              this.__copyFromExamples(file, 'styles/less-example.less', 'main.scss')
+              this.__copyFromExamples(file, 'styles/less-example.less', 'main.less')
             }
             if (this.cssmodules) {
               if (this.style === 'css') {
@@ -179,6 +179,13 @@ module.exports = class extends Generator {
                 this.__copyFromExamples(file, 'js/less-example.js', 'index.js');
               }
             }
+          } else if (file === 'webpack_cfg') {
+            if (this.cssmodules) {
+              this.__copyFromExamples(file, 'loaders/cssmodules/loaders.js', 'loaders.js');
+            } else {
+              this.__copyFromExamples(file, 'loaders/loaders.js', 'loaders.js');
+            }
+            continue;
           }
           ncp(fullPath, file);
         } else {
