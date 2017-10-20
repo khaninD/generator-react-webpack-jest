@@ -70,12 +70,16 @@ describe('react-webpack:app', () => {
       cssmodules: true
     }));
 
-    it('should add reactcss modules  support', () => {
+    it('should add reactcss modules support', () => {
       assert.fileContent('package.json', 'react-css-modules');
     });
 
     it('should be use sass', () => {
       expect(generator.style).toBe('sass');
+    });
+
+    it('cretae file main.sass', () => {
+      assert.file('src/styles/main.sass');
     });
 
     it('should add sass-loader  support', () => {
@@ -91,8 +95,12 @@ describe('react-webpack:app', () => {
         style: 'scss',
         cssmodules: true
       }));
-      it('should be use scsss', () => {
+      it('should be use scss', () => {
         expect(generator.style).toBe('scss');
+      });
+
+      it('cretae file main.scss', () => {
+        assert.file('src/styles/main.scss');
       });
 
       it('should add sass-loader  support', () => {
@@ -101,6 +109,28 @@ describe('react-webpack:app', () => {
 
       it('should add scss-loader  support', () => {
         assert.fileContent('src/index.js', 'import styles from \'./main.scss\';');
+      });
+    })
+
+    describe('test config with LESS styles', () => {
+      beforeEach(() => beforeLoad({
+        style: 'less',
+        cssmodules: true
+      }));
+      it('should be use less', () => {
+        expect(generator.style).toBe('less');
+      });
+
+      it('create main.less file', () => {
+        assert.file('src/styles/main.less');
+      });
+
+      it('should add sass-loader  support', () => {
+        assert.fileContent('package.json', 'less-loader');
+      });
+
+      it('should add scss-loader  support', () => {
+        assert.fileContent('src/index.js', 'import styles from \'./main.less\';');
       });
     })
   });
@@ -112,6 +142,10 @@ describe('react-webpack:app', () => {
 
     it('should use "css" as default style language', () => {
       expect(generator.style).toBe('css');
+    });
+
+    it('cretae file main.scss', () => {
+      assert.file('src/styles/main.css');
     });
 
     it('should use "inlineStyleTool"', () => {

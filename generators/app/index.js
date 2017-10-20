@@ -4,8 +4,8 @@ const fs = require('fs');
 const { mkdirsSync } = require('mkdir');
 const { ncp } = require('ncp');
 const utils = require('../../utils/all');
-const { firstPrompt, secondPrompt, thirdPrompt } = require('./prompts');
-const baseRootPath = path.dirname(require.resolve('webpack-react-template'));
+const {firstPrompt, secondPrompt, thirdPrompt} = require('./prompts');
+const baseRootPath = path.dirname(require.resolve('../webpack-react-template'));
 
 module.exports = class extends Generator {
   constructor(args, opts) {
@@ -150,11 +150,13 @@ module.exports = class extends Generator {
             }
             // @TODO give paths from array path
             if (this.style === 'sass') {
-              this.__copyFromExamples(file, 'styles/sass-example.sass', 'main.sass')
+              this.__copyFromExamples(file, 'styles/sass-example.sass', 'styles/main.sass')
             } else if(this.style === 'css') {
-              this.__copyFromExamples(file, 'styles/example.css', 'main.css')
+              this.__copyFromExamples(file, 'styles/example.css', 'styles/main.css')
             } else if(this.style === 'scss') {
-              this.__copyFromExamples(file, 'styles/scss-example.scss', 'main.scss')
+              this.__copyFromExamples(file, 'styles/scss-example.scss', 'styles/main.scss')
+            } else if(this.style === 'less') {
+              this.__copyFromExamples(file, 'styles/less-example.less', 'styles/main.less')
             }
             if (this.cssmodules) {
               if (this.style === 'css') {
@@ -163,6 +165,8 @@ module.exports = class extends Generator {
                 this.__copyFromExamples(file, 'css-modules/sass/sass.js', 'index.js');
               } else if (this.style === 'scss') {
                 this.__copyFromExamples(file, 'css-modules/sass/scss.js', 'index.js');
+              } else if (this.style === 'less') {
+                this.__copyFromExamples(file, 'css-modules/less/less.js', 'index.js');
               }
             } else {
               if (this.style === 'css') {
@@ -171,7 +175,15 @@ module.exports = class extends Generator {
                 this.__copyFromExamples(file, 'js/sass-example.js', 'index.js');
               } else if (this.style === 'scss') {
                 this.__copyFromExamples(file, 'js/scss-example.js', 'index.js');
+              } else if (this.style === 'less') {
+                this.__copyFromExamples(file, 'js/less-example.js', 'index.js');
               }
+            }
+          } else if (file === 'webpack_cfg') {
+            if (this.cssmodules) {
+              this.__copyFromExamples(file, 'loaders/cssmodules/loaders.js', 'loaders.js');
+            } else {
+              this.__copyFromExamples(file, 'loaders/loaders.js', 'loaders.js');
             }
           }
           ncp(fullPath, file);

@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "It's simplify generator for React applications, with support Jest as test runner and Enzyme",
   "scripts": {
-    "postinstall": "lerna bootstrap",
     "lint": "eslint --ignore-path .eslintignore generators/",
     "pretest": "yarn lint --cache",
     "test": "jest",
