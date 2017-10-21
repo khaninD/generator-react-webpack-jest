@@ -8,8 +8,8 @@ let generator;
 
 /**
  * Global before load function. Run in the before callbacks
- * @param  {Object} prompts List of prompts to use
- * @return {Promise}
+ * @param  {Object} customPrompts List of prompts to use
+ * @return {Promise} -
  */
 const beforeLoad = (customPrompts) => {
 
