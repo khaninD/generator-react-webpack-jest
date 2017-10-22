@@ -1,4 +1,5 @@
 let opts = require('./configopts.json');
+
 /**
  * Get a setting
  * @param  {String} setting
@@ -47,10 +48,10 @@ let getChoiceByKey = (setting, key) => {
   }
 
   return result;
-}
+};
 
 module.exports = {
   getChoices,
   getDefaultChoice,
   getChoiceByKey
-}
+};

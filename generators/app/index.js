@@ -2,8 +2,7 @@ const Generator = require('yeoman-generator');
 const path = require('path');
 const fs = require('fs');
 const { mkdirsSync } = require('mkdir');
-const { ncp } = require('ncp');
-const utils = require('../../utils/all');
+const { yeoman, config } = require('../../utils/all');
 const {firstPrompt, secondPrompt, thirdPrompt} = require('./prompts');
 const baseRootPath = path.dirname(require.resolve('../webpack-react-template'));
 
@@ -11,8 +10,6 @@ module.exports = class extends Generator {
   constructor(args, opts) {
     // Calling the super constructor is important so our generator is correctly set up
     super(args, opts);
-    // Use our plain template as source
-    this.sourceRoot(baseRootPath);
   }
 
   /**
@@ -22,8 +19,8 @@ module.exports = class extends Generator {
   prompting() {
     return this.prompt(firstPrompt).then((answers) => {
       // Make sure to get the correct app name if it is not the default
-      if(answers.appName !== utils.yeoman.getAppName()) {
-        answers.appName = utils.yeoman.getAppName(answers.appName);
+      if(answers.appName !== yeoman.getAppName()) {
+        answers.appName = yeoman.getAppName(answers.appName);
       }
       this.appName = answers.appName;
       this.inlineStyleTool = answers.inlineStyleTool;
@@ -106,23 +103,23 @@ module.exports = class extends Generator {
       this._setLerna(packageSettings, defaultSettings);
     }
     packageSettings = Object.assign(defaultSettings, packageSettings);
-    // Add needed inline styles tools
-    const inlineStyleTools = utils.config.getChoiceByKey('inlineStyleTools', this.inlineStyleTools);
 
+    // Add needed inline styles tools
+    const inlineStyleTools = config.getChoiceByKey('inlineStyleTools', this.inlineStyleTools);
     this._setDependence(packageSettings, true, inlineStyleTools);
 
     // Add needed loaders if we have special styles
-    let styleConfig = utils.config.getChoiceByKey('style', this.style);
+    let styleConfig = config.getChoiceByKey('style', this.style);
     this._setDependence(packageSettings, false, styleConfig);
 
     // Add postcss module if enabled
-    let postcssConfig = utils.config.getChoiceByKey('postcss', 'postcss');
+    let postcssConfig = config.getChoiceByKey('postcss', 'postcss');
     if (this.postcss) {
       this._setDependence(packageSettings, false, postcssConfig);
     }
 
     // Add cssmodules if enabled
-    const cssmoduleConfig = utils.config.getChoiceByKey('cssmodules', 'cssmodules');
+    const cssmoduleConfig = config.getChoiceByKey('cssmodules', 'cssmodules');
     if(this.cssmodules) {
       this._setDependence(packageSettings, true, cssmoduleConfig);
     }
@@ -130,68 +127,63 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    const excludeList = [
-      'package.json',
-      'node_modules'
+    const excludeFiles = [
+      'node_modules',
+      'package.json'
     ];
-    fs.readdir(this.sourceRoot(), (err, files) => {
+    fs.readdir(baseRootPath, (err, files) => {
       for (let file of files) {
-        // Skip file if it's in our exclude list
-        if (excludeList.indexOf(file) !== -1) {
+        if (excludeFiles.indexOf(file) > -1) {
           continue;
         }
-        const fullPath = path.join(baseRootPath, file);
-        const checkDirectory = fs.statSync(fullPath).isDirectory();
-        if (checkDirectory) {
-          if (file === 'src') {
-            // @TODO give out of in helper function
-            if (this.inlineStyleTools) {
-              this.__copyFromExamples(file, `js/${this.inlineStyleTools}-example.js`, 'index.js')
+        const from = path.join(baseRootPath, file);
+        const to = this.destinationPath(file);
+        if (file === 'src') {
+          // Copy all from src
+          this.fs.copy(from, to);
+          if (this.inlineStyleTools) {
+            this.__copyFromExamples(file, `js/${this.inlineStyleTools}-example.js`, 'index.js')
+          }
+          if (this.style === 'sass') {
+            this.__copyFromExamples(file, 'styles/sass-example.sass', 'styles/main.sass')
+          } else if(this.style === 'css') {
+            this.__copyFromExamples(file, 'styles/example.css', 'styles/main.css')
+          } else if(this.style === 'scss') {
+            this.__copyFromExamples(file, 'styles/scss-example.scss', 'styles/main.scss')
+          } else if(this.style === 'less') {
+            this.__copyFromExamples(file, 'styles/less-example.less', 'styles/main.less')
+          }
+          if (this.cssmodules) {
+            if (this.style === 'css') {
+              this.__copyFromExamples(file, 'css-modules/css/css.js', 'index.js');
+            } else if (this.style === 'sass') {
+              this.__copyFromExamples(file, 'css-modules/sass/sass.js', 'index.js');
+            } else if (this.style === 'scss') {
+              this.__copyFromExamples(file, 'css-modules/sass/scss.js', 'index.js');
+            } else if (this.style === 'less') {
+              this.__copyFromExamples(file, 'css-modules/less/less.js', 'index.js');
             }
-            // @TODO give paths from array path
-            if (this.style === 'sass') {
-              this.__copyFromExamples(file, 'styles/sass-example.sass', 'styles/main.sass')
-            } else if(this.style === 'css') {
-              this.__copyFromExamples(file, 'styles/example.css', 'styles/main.css')
-            } else if(this.style === 'scss') {
-              this.__copyFromExamples(file, 'styles/scss-example.scss', 'styles/main.scss')
-            } else if(this.style === 'less') {
-              this.__copyFromExamples(file, 'styles/less-example.less', 'styles/main.less')
-            }
-            if (this.cssmodules) {
-              if (this.style === 'css') {
-                this.__copyFromExamples(file, 'css-modules/sass/css.js', 'index.js');
-              } else if (this.style === 'sass') {
-                this.__copyFromExamples(file, 'css-modules/sass/sass.js', 'index.js');
-              } else if (this.style === 'scss') {
-                this.__copyFromExamples(file, 'css-modules/sass/scss.js', 'index.js');
-              } else if (this.style === 'less') {
-                this.__copyFromExamples(file, 'css-modules/less/less.js', 'index.js');
-              }
-            } else {
-              if (this.style === 'css') {
-                this.__copyFromExamples(file, 'js/example.js', 'index.js');
-              } else if (this.style === 'sass') {
-                this.__copyFromExamples(file, 'js/sass-example.js', 'index.js');
-              } else if (this.style === 'scss') {
-                this.__copyFromExamples(file, 'js/scss-example.js', 'index.js');
-              } else if (this.style === 'less') {
-                this.__copyFromExamples(file, 'js/less-example.js', 'index.js');
-              }
-            }
-          } else if (file === 'webpack_cfg') {
-            if (this.cssmodules) {
-              this.__copyFromExamples(file, 'loaders/cssmodules/loaders.js', 'loaders.js');
-            } else {
-              this.__copyFromExamples(file, 'loaders/loaders.js', 'loaders.js');
+          } else {
+            if (this.style === 'css') {
+              this.__copyFromExamples(file, 'js/example.js', 'index.js');
+            } else if (this.style === 'sass') {
+              this.__copyFromExamples(file, 'js/sass-example.js', 'index.js');
+            } else if (this.style === 'scss') {
+              this.__copyFromExamples(file, 'js/scss-example.js', 'index.js');
+            } else if (this.style === 'less') {
+              this.__copyFromExamples(file, 'js/less-example.js', 'index.js');
             }
           }
-          ncp(fullPath, file);
+        } else if (file === 'webpack_cfg' && this.cssmodules) {
+          // copy all form webpack_cfg
+          this.fs.copy(from, to);
+          // replace laoders.js
+          this.__copyFromExamples(file, 'loaders/cssmodules/loaders.js', 'loaders.js');
         } else {
-          this.fs.copy(fullPath, file);
+          this.fs.copy(from, to);
         }
       }
-     });
+    });
   }
 
   install() {
