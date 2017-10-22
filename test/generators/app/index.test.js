@@ -26,7 +26,72 @@ const beforeLoad = (customPrompts) => {
 };
 
 describe('react-webpack:app', () => {
+  beforeEach(() => beforeLoad());
+  describe('react-webpack:app', () => {
+    describe('#config', () => {
+      it('should be app name === generator-react-webpack-jest', () => {
+        expect(generator.appName).toBe('generator-react-webpack-jest');
+      });
 
+      it('should use "css" as default style language', () => {
+        expect(generator.style).toBe('css');
+      });
+
+      it('should not use "inlineStyleTool"', () => {
+        expect(generator.inlineStyleTool).toBeFalsy();
+      });
+
+      it('should not use inlineStyleTools', () => {
+        expect(generator.inlineStyleTools).toBeUndefined();
+      });
+
+      it('should be not support postcss', () => {
+        expect(generator.postcss).toBeFalsy();
+      });
+
+      it('should be not support module ', () => {
+        expect(generator.cssmodules).toBeFalsy();
+      });
+
+      it('should be not support cssnext', () => {
+        expect(generator.cssnext).toBeFalsy();
+      });
+    })
+  });
+  describe('#createFiles', () => {
+    it('should generate dot files', () => {
+      assert.file(['package.json',
+        '.babelrc',
+        '.eslintrc',
+        '.gitignore'
+      ]);
+    });
+
+    it('should generate project configuration files', () => {
+      assert.file('server.js');
+      assert.file('package.json');
+    });
+
+    it('should generate the webpack configuration files', () => {
+      assert.file([
+        'webpack.config.js',
+        'webpack_cfg/loaders.js',
+        'webpack_cfg/webpack.dev.js',
+        'webpack_cfg/webpack.prod.js'
+      ])
+    });
+
+    it('should generate required source files', () => {
+      assert.file([
+        'src/index.html',
+        'src/images/yeoman.png',
+        'src/static/favicon.ico',
+        'styles/main.css'
+      ]);
+    });
+  });
+});
+describe('react-webpack:app', () => {
   beforeEach(() => beforeLoad());
 
   describe('test config with customPrompts', () => {
@@ -133,57 +198,5 @@ describe('react-webpack:app', () => {
         assert.fileContent('src/index.js', 'import styles from \'./main.less\';');
       });
     })
-  });
-
-  describe('test config with defaults props', () => {
-    it('should be app name === generator-react-webpack-jest', () => {
-      expect(generator.appName).toBe('generator-react-webpack-jest');
-    });
-
-    it('should use "css" as default style language', () => {
-      expect(generator.style).toBe('css');
-    });
-
-    it('cretae file main.scss', () => {
-      assert.file('src/styles/main.css');
-    });
-
-    it('should use "inlineStyleTool"', () => {
-      expect(generator.inlineStyleTool).toBeFalsy();
-    });
-
-    it('should use "Radium" as inlineStyleTools', () => {
-      expect(generator.inlineStyleTools).toBeUndefined();
-    });
-
-    it('should be not support postcss', () => {
-      expect(generator.postcss).toBeFalsy();
-    });
-
-    it('should be not support module ', () => {
-      expect(generator.cssmodules).toBeFalsy();
-    });
-
-    it('should be cssnext support', () => {
-      expect(generator.cssnext).toBeFalsy();
-    });
-  });
-
-  describe('create files', () => {
-    it('should generate project configuration files and directories', () => {
-      assert.file(['package.json',
-        '.babelrc',
-        '.eslintrc',
-        'server.js',
-        '.gitignore',
-        'webpack.config.js',
-        'src',
-        'src/index.html',
-        'webpack_cfg/loaders.js',
-        'webpack_cfg/webpack.dev.js',
-        'webpack_cfg/webpack.prod.js',
-        'webpack_cfg'
-      ]);
-    });
   });
 });
