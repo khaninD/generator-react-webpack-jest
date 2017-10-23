@@ -135,7 +135,8 @@ module.exports = class extends Generator {
   writing() {
     const excludeFiles = [
       'node_modules',
-      'package.json'
+      'package.json',
+      (this.postcss) ? '' : 'post.css.config.js'
     ];
     fs.readdir(baseRootPath, (err, files) => {
       for (let file of files) {

@@ -292,8 +292,18 @@ describe('#react-webpack-jest:app support postcss', () => {
   describe('#configuring', () => {
     it('should be support postcss', () => {
       assert.fileContent('package.json', 'postcss-loader')
+    });
+
+    it('should be support postcss in loaders', () => {
+      assert.fileContent('webpack_cfg/loaders.js', 'postcss-loader')
     })
-  })
+  });
+
+  describe('#create files', () => {
+    it('should be generate postcss.config.js file', () => {
+      assert.file('postcss.config.js');
+    })
+  });
 });
 
 describe('#react-webpack-jest:app support nextcss', () => {
