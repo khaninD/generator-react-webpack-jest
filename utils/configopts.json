@@ -59,7 +59,8 @@
         "value": "postcss",
         "packages": [
           { "name": "postcss", "version": "^5.0.21" },
-          { "name": "postcss-loader", "version": "^2.0.6" }
+          { "name": "postcss-loader", "version": "^2.0.6" },
+          { "name": "autoprefixer", "version": "*" }
         ]
       }
     ]

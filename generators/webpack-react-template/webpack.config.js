@@ -1,7 +1,7 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const loaders = require('../app/examples/loaders/loaders');
+const loaders = require('./webpack_cfg/loaders');
 const env = process.env.NODE_ENV;
 
 // the path(s) that should be cleaned

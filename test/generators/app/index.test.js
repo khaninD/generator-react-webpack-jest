@@ -304,6 +304,15 @@ describe('#react-webpack-jest:app support postcss', () => {
       assert.file('postcss.config.js');
     })
   });
+
+  describe('#check autoprefixer', () => {
+    it('should be support autoprefixer', () => {
+      assert.fileContent('package.json', 'autoprefixer');
+    });
+    it('should be support autoprefixer in postcss.config', () => {
+      assert.fileContent('postcss.config.js', 'require(\'autoprefixer\')');
+    })
+  });
 });
 
 describe('#react-webpack-jest:app support nextcss', () => {

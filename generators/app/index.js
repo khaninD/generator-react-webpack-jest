@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const { mkdirsSync } = require('mkdir');
 const { yeoman, config } = require('../../utils/all');
-const {firstPrompt, secondPrompt, thirdPrompt} = require('./prompts');
+const {firstPrompt, secondPrompt, thirdPrompt, fourthPrompt} = require('./prompts');
 const baseRootPath = path.dirname(require.resolve('../webpack-react-template'));
 
 module.exports = class extends Generator {
@@ -136,7 +136,7 @@ module.exports = class extends Generator {
     const excludeFiles = [
       'node_modules',
       'package.json',
-      (this.postcss) ? '' : 'post.css.config.js'
+      (this.postcss) ? '' : 'postcss.config.js'
     ];
     fs.readdir(baseRootPath, (err, files) => {
       for (let file of files) {
