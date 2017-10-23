@@ -213,7 +213,7 @@ describe('react-webpack-jest:app with sass language', () => {
   })
 });
 
-describe('react-webpack-jest:app with support cssmodules', () => {
+describe('react-webpack-jest:app with support cssmodules (css language)', () => {
   beforeEach(() => beforeLoad({
     cssmodules: true
   }));
@@ -233,6 +233,35 @@ describe('react-webpack-jest:app with support cssmodules', () => {
   describe('#content of index.js', () => {
     it('should be support react-css-modules', () => {
       assert.fileContent('src/index.js', 'Table = CSSModules(Table, styles);')
+    })
+  })
+});
+
+describe('react-webpack-jest:app with support cssmodules (sass language)', () => {
+  beforeEach(() => beforeLoad({
+    cssmodules: true,
+    style: 'sass'
+  }));
+
+  describe('#config', () => {
+    it('should be use cssmodules', () => {
+      expect(generator.cssmodules).toBeTruthy();
+    });
+  });
+
+  describe('#configuring', () => {
+    it('should be use react-css-modules', () => {
+      assert.fileContent('package.json', 'react-css-modules');
+    });
+  });
+
+  describe('#content of index.js', () => {
+    it('should be support react-css-modules', () => {
+      assert.fileContent('src/index.js', 'Table = CSSModules(Table, styles);')
+    });
+
+    it('should be support sass', () => {
+      assert.fileContent('src/index.js', 'import styles from \'./main.sass\';')
     })
   })
 });
