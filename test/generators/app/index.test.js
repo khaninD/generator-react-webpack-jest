@@ -163,7 +163,7 @@ describe('react-webpack-jest:app with less language', () => {
       expect(generator.style).toBe('less');
     });
   });
-// 16:50 START
+
   describe('#configuring', () => {
     it('should be use less-loader', () => {
       assert.fileContent('package.json', 'less-loader');
@@ -179,6 +179,36 @@ describe('react-webpack-jest:app with less language', () => {
   describe('#content if index.js', () => {
     it('should be support less', () => {
       assert.fileContent('src/index.js', 'import styles from \'./main.less\';')
+    })
+  })
+});
+
+describe('react-webpack-jest:app with sass language', () => {
+  beforeEach(() => beforeLoad({
+    style: 'scss'
+  }));
+
+  describe('#config', () => {
+    it('should be use scss language', () => {
+      expect(generator.style).toBe('scss');
+    });
+  });
+
+  describe('#configuring', () => {
+    it('should be use sass-loader', () => {
+      assert.fileContent('package.json', 'sass-loader');
+    });
+  });
+
+  describe('#createFiles', () => {
+    it('should be generate scss file', () => {
+      assert.file('src/styles/main.scss');
+    });
+  });
+
+  describe('#content if index.js', () => {
+    it('should be support scss', () => {
+      assert.fileContent('src/index.js', 'import styles from \'./main.scss\';')
     })
   })
 });
