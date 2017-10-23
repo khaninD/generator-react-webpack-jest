@@ -180,11 +180,18 @@ module.exports = class extends Generator {
               this.__copyFromExamples(file, 'js/less-example.js', 'index.js');
             }
           }
-        } else if (file === 'webpack_cfg' && this.cssmodules) {
+        } else if (file === 'webpack_cfg') {
           // copy all form webpack_cfg
           this.fs.copy(from, to);
-          // replace laoders.js
-          this.__copyFromExamples(file, 'loaders/cssmodules/loaders.js', 'loaders.js');
+          if (this.cssmodules && this.postcss) {
+            this.__copyFromExamples(file, 'loaders/cssmodules/postcss-modules.js', 'loaders.js');
+          } else if (this.cssmodules) {
+            this.__copyFromExamples(file, 'loaders/cssmodules/loaders.js', 'loaders.js');
+          } else if (this.postcss) {
+            this.__copyFromExamples(file, 'loaders/cssmodules/postcss.js', 'loaders.js');
+          } else {
+            this.__copyFromExamples(file, 'loaders/loaders.js', 'loaders.js');
+          }
         } else {
           this.fs.copy(from, to);
         }
