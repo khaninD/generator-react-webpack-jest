@@ -67,9 +67,9 @@ describe('react-webpack:app', () => {
       ]);
     });
 
-    it('should generate project configuration files', () => {
-      assert.file('server.js');
+    it('should generate project configuration file', () => {
       assert.file('package.json');
+      assert.file('server.js');
     });
 
     it('should generate the webpack configuration files', () => {
@@ -80,7 +80,7 @@ describe('react-webpack:app', () => {
         'webpack_cfg/webpack.prod.js'
       ])
     });
-
+    
     it('should generate required source files', () => {
       assert.file([
         'src/index.html',
@@ -91,6 +91,7 @@ describe('react-webpack:app', () => {
     });
   });
 });
+
 describe('react-webpack:app', () => {
   beforeEach(() => beforeLoad());
 
