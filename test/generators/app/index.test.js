@@ -148,7 +148,7 @@ describe('react-webpack-jest:app with sass language', () => {
 
   describe('#content of index.js', () => {
     it('should be support sass', () => {
-      assert.fileContent('src/index.js', 'import styles from \'./main.sass\';')
+      assert.fileContent('src/index.js', 'import styles from \'./styles/main.sass\';')
     })
   })
 });
@@ -178,7 +178,7 @@ describe('react-webpack-jest:app with less language', () => {
 
   describe('#content of index.js', () => {
     it('should be support less', () => {
-      assert.fileContent('src/index.js', 'import styles from \'./main.less\';')
+      assert.fileContent('src/index.js', 'import styles from \'./styles/main.less\';')
     })
   })
 });
@@ -208,7 +208,7 @@ describe('react-webpack-jest:app with sass language', () => {
 
   describe('#content of index.js', () => {
     it('should be support scss', () => {
-      assert.fileContent('src/index.js', 'import styles from \'./main.scss\';')
+      assert.fileContent('src/index.js', 'import styles from \'./styles/main.scss\';')
     })
   })
 });
@@ -267,7 +267,7 @@ describe('react-webpack-jest:app with support cssmodules (sass language)', () =>
     });
 
     it('should be support sass', () => {
-      assert.fileContent('src/index.js', 'import styles from \'./main.sass\';')
+      assert.fileContent('src/index.js', 'import styles from \'./styles/main.sass\';')
     })
   });
 
@@ -310,13 +310,14 @@ describe('#react-webpack-jest:app support postcss', () => {
       assert.fileContent('package.json', 'autoprefixer');
     });
     it('should be support autoprefixer in postcss.config', () => {
-      assert.fileContent('postcss.config.js', 'require(\'autoprefixer\')');
+      assert.fileContent('postcss.config.js', 'autoprefixer');
     })
   });
 });
 
-describe('#react-webpack-jest:app support nextcss', () => {
+describe('#react-webpack-jest:app support cssnext', () => {
   beforeEach(() => beforeLoad({
+    postcss: true,
     cssnext: true
   }));
 
@@ -333,6 +334,10 @@ describe('#react-webpack-jest:app support nextcss', () => {
 
     it('should be support cssnext', () => {
       assert.fileContent('package.json', 'postcss-cssnext')
+    });
+
+    it('should be support cssnext', () => {
+      assert.fileContent('postcss.config.js', 'postcss-cssnext')
     })
   })
 });

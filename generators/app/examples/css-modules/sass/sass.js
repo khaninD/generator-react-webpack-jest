@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CSSModules from 'react-css-modules';
-import styles from './main.sass';
+import styles from './styles/main.sass';
 
 class Table extends React.Component {
   render () {

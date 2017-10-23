@@ -63,6 +63,9 @@ module.exports = class extends Generator {
 
   __copyFromExamples(filePath, fileName, outputName) {
     const pathToFile = path.join(__dirname, 'examples', fileName);
+    if (filePath === 'postcss.config.js') {
+      console.log(path.join(filePath, outputName))
+    }
     this.fs.copy(pathToFile, path.join(filePath, outputName));
   }
 
@@ -135,8 +138,7 @@ module.exports = class extends Generator {
   writing() {
     const excludeFiles = [
       'node_modules',
-      'package.json',
-      (this.postcss) ? '' : 'postcss.config.js'
+      'package.json'
     ];
     fs.readdir(baseRootPath, (err, files) => {
       for (let file of files) {
@@ -192,6 +194,13 @@ module.exports = class extends Generator {
             this.__copyFromExamples(file, 'loaders/cssmodules/postcss.js', 'loaders.js');
           } else {
             this.__copyFromExamples(file, 'loaders/loaders.js', 'loaders.js');
+          }
+        } if (file === 'postcss.config.js') {
+          if (this.postcss && this.cssnext) {
+            const pathToFile = path.join(__dirname, 'examples', 'postcss-config/postcss-cssnext.js');
+            this.fs.copy(pathToFile, to);
+          } else if (this.postcss) {
+            this.fs.copy(from, to);
           }
         } else {
           this.fs.copy(from, to);
