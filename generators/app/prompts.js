@@ -23,11 +23,11 @@ module.exports = {
   },
   thirdPrompt: [
     {
-    type: 'list',
-    name: 'style',
-    message: 'Which style language do you want to use?',
-    choices: utils.config.getChoices('style'),
-    default: utils.config.getDefaultChoice('style')
+      type: 'list',
+      name: 'style',
+      message: 'Which style language do you want to use?',
+      choices: utils.config.getChoices('style'),
+      default: utils.config.getDefaultChoice('style')
     },
     {
       type    : 'confirm',

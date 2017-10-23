@@ -178,6 +178,10 @@ describe('react-webpack:app', () => {
         '.gitignore',
         'webpack.config.js',
         'src',
+        'src/index.html',
+        'webpack_cfg/loaders.js',
+        'webpack_cfg/webpack.dev.js',
+        'webpack_cfg/webpack.prod.js',
         'webpack_cfg'
       ]);
     });

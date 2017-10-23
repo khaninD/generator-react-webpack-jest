@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "mkdir": "0.0.2",
-    "ncp": "^2.0.0",
     "underscore.string": "^3.3.4",
     "yeoman-generator": "^2.0.1"
   },
