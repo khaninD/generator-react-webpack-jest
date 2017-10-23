@@ -27,37 +27,36 @@ const beforeLoad = (customPrompts) => {
 
 describe('react-webpack:app', () => {
   beforeEach(() => beforeLoad());
-  describe('react-webpack:app', () => {
-    describe('#config', () => {
-      it('should be app name === generator-react-webpack-jest', () => {
-        expect(generator.appName).toBe('generator-react-webpack-jest');
-      });
+  describe('#config', () => {
+    it('should be app name === generator-react-webpack-jest', () => {
+      expect(generator.appName).toBe('generator-react-webpack-jest');
+    });
 
-      it('should use "css" as default style language', () => {
-        expect(generator.style).toBe('css');
-      });
+    it('should use "css" as default style language', () => {
+      expect(generator.style).toBe('css');
+    });
 
-      it('should not use "inlineStyleTool"', () => {
-        expect(generator.inlineStyleTool).toBeFalsy();
-      });
+    it('should not use "inlineStyleTool"', () => {
+      expect(generator.inlineStyleTool).toBeFalsy();
+    });
 
-      it('should not use inlineStyleTools', () => {
-        expect(generator.inlineStyleTools).toBeUndefined();
-      });
+    it('should not use inlineStyleTools', () => {
+      expect(generator.inlineStyleTools).toBeUndefined();
+    });
 
-      it('should be not support postcss', () => {
-        expect(generator.postcss).toBeFalsy();
-      });
+    it('should be not support postcss', () => {
+      expect(generator.postcss).toBeFalsy();
+    });
 
-      it('should be not support module ', () => {
-        expect(generator.cssmodules).toBeFalsy();
-      });
+    it('should be not support module ', () => {
+      expect(generator.cssmodules).toBeFalsy();
+    });
 
-      it('should be not support cssnext', () => {
-        expect(generator.cssnext).toBeFalsy();
-      });
-    })
+    it('should be not support cssnext', () => {
+      expect(generator.cssnext).toBeFalsy();
+    });
   });
+
   describe('#createFiles', () => {
     it('should generate dot files', () => {
       assert.file(['package.json',
@@ -80,18 +79,80 @@ describe('react-webpack:app', () => {
         'webpack_cfg/webpack.prod.js'
       ])
     });
-    
+
     it('should generate required source files', () => {
       assert.file([
         'src/index.html',
         'src/images/yeoman.png',
         'src/static/favicon.ico',
-        'styles/main.css'
+        'src/styles/main.css'
       ]);
     });
+
+    it('should generate basic tests files', () => {
+      assert.file([
+        '__test__/index.test.js'
+      ])
+    })
   });
 });
 
+describe('react-webpack-jest:app with inline styles support', () => {
+  beforeEach(() => beforeLoad({
+    inlineStyleTool: true,
+    inlineStyleTools: 'radium'
+  }));
+
+  describe('#config', () => {
+    it('should be use inlineStyleTool and use radium', () => {
+      expect(generator.inlineStyleTool).toBeTruthy();
+      expect(generator.inlineStyleTools).toBe('radium');
+    })
+  });
+
+  describe('#configuring', () => {
+    it('should add radium support', () => {
+      assert.fileContent('package.json', 'radium');
+    })
+  });
+
+  describe('#content of index.js', () => {
+    it('should use radium', () => {
+      assert.fileContent('src/index.js', 'const Component = Radium(Alert);');
+    })
+  })
+});
+
+describe('react-webpack-jest:app with sass language', () => {
+  beforeEach(() => beforeLoad({
+    style: 'sass'
+  }));
+
+  describe('#config', () => {
+    it('should be use sass language', () => {
+      expect(generator.style).toBe('sass');
+    });
+  });
+// 16:50 START
+  describe('#configuring', () => {
+    it('should be use sass-loader', () => {
+      assert.fileContent('package.json', 'sass-loader');
+    });
+  });
+
+  describe('#createFiles', () => {
+    it('should be generate sass file', () => {
+      assert.file('src/styles/main.sass');
+    });
+  });
+
+  describe('#content if index.js', () => {
+    it('should be support sass', () => {
+      assert.fileContent('src/index.js', 'import styles from \'./main.sass\';')
+    })
+  })
+});
+/*
 describe('react-webpack:app', () => {
   beforeEach(() => beforeLoad());
 
@@ -201,3 +262,4 @@ describe('react-webpack:app', () => {
     })
   });
 });
+*/
