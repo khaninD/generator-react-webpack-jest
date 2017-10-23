@@ -8,8 +8,8 @@ let generator;
 
 /**
  * Global before load function. Run in the before callbacks
- * @param  {Object} prompts List of prompts to use
- * @return {Promise}
+ * @param  {Object} customPrompts List of prompts to use
+ * @return {Promise} -
  */
 const beforeLoad = (customPrompts) => {
 
@@ -26,116 +26,8 @@ const beforeLoad = (customPrompts) => {
 };
 
 describe('react-webpack:app', () => {
-
   beforeEach(() => beforeLoad());
-
-  describe('test config with customPrompts', () => {
-    beforeEach(() => beforeLoad({
-      appName: 'my-react-app',
-      inlineStyleTool: false
-    }));
-
-    it ('should be app name === my-react-app', () => {
-      expect(generator.appName).toBe('my-react-app');
-    });
-
-    it('should be not use inlineStyleTools', () => {
-      expect(generator.inlineStyleTool).toBeFalsy();
-      expect(generator.inlineStyleTools).toBeUndefined();
-    });
-  });
-
-  describe('test config with customPrompts **IINLINE STYLE**', () => {
-    beforeEach(() => beforeLoad({
-      inlineStyleTool: true,
-      inlineStyleTools: 'radium'
-    }));
-
-    it('should be use inlineStyleTool', () => {
-      expect(generator.inlineStyleTool).toBeTruthy();
-    });
-
-    it('should be use inlineStyleTools', () => {
-      expect(generator.inlineStyleTools).toBe('radium');
-    });
-
-    it('should add react style support', () => {
-      assert.fileContent('package.json', 'radium');
-    });
-  });
-
-  describe('test config with customPrompts ** STYLES ** ', () => {
-    beforeEach(() => beforeLoad({
-      style: 'sass',
-      cssmodules: true
-    }));
-
-    it('should add reactcss modules support', () => {
-      assert.fileContent('package.json', 'react-css-modules');
-    });
-
-    it('should be use sass', () => {
-      expect(generator.style).toBe('sass');
-    });
-
-    it('cretae file main.sass', () => {
-      assert.file('src/styles/main.sass');
-    });
-
-    it('should add sass-loader  support', () => {
-      assert.fileContent('package.json', 'sass-loader');
-    });
-
-    it('should add sass-loader  support', () => {
-      assert.fileContent('src/index.js', 'import styles from \'./main.sass\';');
-    });
-
-    describe('test config with SCSS styles', () => {
-      beforeEach(() => beforeLoad({
-        style: 'scss',
-        cssmodules: true
-      }));
-      it('should be use scss', () => {
-        expect(generator.style).toBe('scss');
-      });
-
-      it('cretae file main.scss', () => {
-        assert.file('src/styles/main.scss');
-      });
-
-      it('should add sass-loader  support', () => {
-        assert.fileContent('package.json', 'sass-loader');
-      });
-
-      it('should add scss-loader  support', () => {
-        assert.fileContent('src/index.js', 'import styles from \'./main.scss\';');
-      });
-    })
-
-    describe('test config with LESS styles', () => {
-      beforeEach(() => beforeLoad({
-        style: 'less',
-        cssmodules: true
-      }));
-      it('should be use less', () => {
-        expect(generator.style).toBe('less');
-      });
-
-      it('create main.less file', () => {
-        assert.file('src/styles/main.less');
-      });
-
-      it('should add sass-loader  support', () => {
-        assert.fileContent('package.json', 'less-loader');
-      });
-
-      it('should add scss-loader  support', () => {
-        assert.fileContent('src/index.js', 'import styles from \'./main.less\';');
-      });
-    })
-  });
-
-  describe('test config with defaults props', () => {
+  describe('#config', () => {
     it('should be app name === generator-react-webpack-jest', () => {
       expect(generator.appName).toBe('generator-react-webpack-jest');
     });
@@ -144,15 +36,11 @@ describe('react-webpack:app', () => {
       expect(generator.style).toBe('css');
     });
 
-    it('cretae file main.scss', () => {
-      assert.file('src/styles/main.css');
-    });
-
-    it('should use "inlineStyleTool"', () => {
+    it('should not use "inlineStyleTool"', () => {
       expect(generator.inlineStyleTool).toBeFalsy();
     });
 
-    it('should use "Radium" as inlineStyleTools', () => {
+    it('should not use inlineStyleTools', () => {
       expect(generator.inlineStyleTools).toBeUndefined();
     });
 
@@ -164,26 +52,268 @@ describe('react-webpack:app', () => {
       expect(generator.cssmodules).toBeFalsy();
     });
 
-    it('should be cssnext support', () => {
+    it('should be not support cssnext', () => {
       expect(generator.cssnext).toBeFalsy();
     });
   });
 
-  describe('create files', () => {
-    it('should generate project configuration files and directories', () => {
+  describe('#createFiles', () => {
+    it('should generate dot files', () => {
       assert.file(['package.json',
         '.babelrc',
         '.eslintrc',
-        'server.js',
-        '.gitignore',
-        'webpack.config.js',
-        'src',
-        'src/index.html',
-        'webpack_cfg/loaders.js',
-        'webpack_cfg/webpack.dev.js',
-        'webpack_cfg/webpack.prod.js',
-        'webpack_cfg'
+        '.gitignore'
       ]);
     });
+
+    it('should generate project configuration file', () => {
+      assert.file('package.json');
+      assert.file('server.js');
+    });
+
+    it('should generate the webpack configuration files', () => {
+      assert.file([
+        'webpack.config.js',
+        'webpack_cfg/loaders.js',
+        'webpack_cfg/webpack.dev.js',
+        'webpack_cfg/webpack.prod.js'
+      ])
+    });
+
+    it('should generate required source files', () => {
+      assert.file([
+        'src/index.html',
+        'src/images/yeoman.png',
+        'src/static/favicon.ico',
+        'src/styles/main.css'
+      ]);
+    });
+
+    it('should generate basic tests files', () => {
+      assert.file([
+        '__test__/index.test.js'
+      ])
+    })
   });
+});
+
+describe('react-webpack-jest:app with inline styles support', () => {
+  beforeEach(() => beforeLoad({
+    inlineStyleTool: true,
+    inlineStyleTools: 'radium'
+  }));
+
+  describe('#config', () => {
+    it('should be use inlineStyleTool and use radium', () => {
+      expect(generator.inlineStyleTool).toBeTruthy();
+      expect(generator.inlineStyleTools).toBe('radium');
+    })
+  });
+
+  describe('#configuring', () => {
+    it('should add radium support', () => {
+      assert.fileContent('package.json', 'radium');
+    })
+  });
+
+  describe('#content of index.js', () => {
+    it('should use radium', () => {
+      assert.fileContent('src/index.js', 'const Component = Radium(Alert);');
+    })
+  })
+});
+
+describe('react-webpack-jest:app with sass language', () => {
+  beforeEach(() => beforeLoad({
+    style: 'sass'
+  }));
+
+  describe('#config', () => {
+    it('should be use sass language', () => {
+      expect(generator.style).toBe('sass');
+    });
+  });
+// 16:50 START
+  describe('#configuring', () => {
+    it('should be use sass-loader', () => {
+      assert.fileContent('package.json', 'sass-loader');
+    });
+  });
+
+  describe('#createFiles', () => {
+    it('should be generate sass file', () => {
+      assert.file('src/styles/main.sass');
+    });
+  });
+
+  describe('#content of index.js', () => {
+    it('should be support sass', () => {
+      assert.fileContent('src/index.js', 'import styles from \'./main.sass\';')
+    })
+  })
+});
+
+describe('react-webpack-jest:app with less language', () => {
+  beforeEach(() => beforeLoad({
+    style: 'less'
+  }));
+
+  describe('#config', () => {
+    it('should be use sass language', () => {
+      expect(generator.style).toBe('less');
+    });
+  });
+
+  describe('#configuring', () => {
+    it('should be use less-loader', () => {
+      assert.fileContent('package.json', 'less-loader');
+    });
+  });
+
+  describe('#createFiles', () => {
+    it('should be generate less file', () => {
+      assert.file('src/styles/main.less');
+    });
+  });
+
+  describe('#content of index.js', () => {
+    it('should be support less', () => {
+      assert.fileContent('src/index.js', 'import styles from \'./main.less\';')
+    })
+  })
+});
+
+describe('react-webpack-jest:app with sass language', () => {
+  beforeEach(() => beforeLoad({
+    style: 'scss'
+  }));
+
+  describe('#config', () => {
+    it('should be use scss language', () => {
+      expect(generator.style).toBe('scss');
+    });
+  });
+
+  describe('#configuring', () => {
+    it('should be use sass-loader', () => {
+      assert.fileContent('package.json', 'sass-loader');
+    });
+  });
+
+  describe('#createFiles', () => {
+    it('should be generate scss file', () => {
+      assert.file('src/styles/main.scss');
+    });
+  });
+
+  describe('#content of index.js', () => {
+    it('should be support scss', () => {
+      assert.fileContent('src/index.js', 'import styles from \'./main.scss\';')
+    })
+  })
+});
+
+describe('react-webpack-jest:app with support cssmodules (css language)', () => {
+  beforeEach(() => beforeLoad({
+    cssmodules: true
+  }));
+
+  describe('#config', () => {
+    it('should be use cssmodules', () => {
+      expect(generator.cssmodules).toBeTruthy();
+    });
+  });
+
+  describe('#configuring', () => {
+    it('should be use react-css-modules', () => {
+      assert.fileContent('package.json', 'react-css-modules');
+    });
+  });
+
+  describe('#content of index.js', () => {
+    it('should be support react-css-modules', () => {
+      assert.fileContent('src/index.js', 'Table = CSSModules(Table, styles);')
+    })
+  });
+
+  describe('#content of loaders.js', () => {
+    it('should be support css modules', () => {
+      assert.fileContent('webpack_cfg/loaders.js', 'modules: true')
+    })
+  })
+});
+
+describe('react-webpack-jest:app with support cssmodules (sass language)', () => {
+  beforeEach(() => beforeLoad({
+    cssmodules: true,
+    style: 'sass'
+  }));
+
+  describe('#config', () => {
+    it('should be use cssmodules', () => {
+      expect(generator.cssmodules).toBeTruthy();
+    });
+  });
+
+  describe('#configuring', () => {
+    it('should be use react-css-modules', () => {
+      assert.fileContent('package.json', 'react-css-modules');
+    });
+  });
+
+  describe('#content of index.js', () => {
+    it('should be support react-css-modules', () => {
+      assert.fileContent('src/index.js', 'Table = CSSModules(Table, styles);')
+    });
+
+    it('should be support sass', () => {
+      assert.fileContent('src/index.js', 'import styles from \'./main.sass\';')
+    })
+  });
+
+  describe('#content of loaders.js', () => {
+    it('should be support css modules', () => {
+      assert.fileContent('webpack_cfg/loaders.js', 'modules: true')
+    })
+  })
+});
+
+describe('#react-webpack-jest:app support postcss', () => {
+  beforeEach(() => beforeLoad({
+    postcss: true
+  }));
+
+  describe('#config', () => {
+    it('should be use postcss', () => {
+      expect(generator.postcss).toBeTruthy();
+    })
+  });
+
+  describe('#configuring', () => {
+    it('should be support postcss', () => {
+      assert.fileContent('package.json', 'postcss-loader')
+    })
+  })
+});
+
+describe('#react-webpack-jest:app support nextcss', () => {
+  beforeEach(() => beforeLoad({
+    cssnext: true
+  }));
+
+  describe('#config', () => {
+    it('should be use cssnext', () => {
+      expect(generator.cssnext).toBeTruthy();
+    })
+  });
+
+  describe('#configuring', () => {
+    it('should be support postcss', () => {
+      assert.fileContent('package.json', 'postcss-loader')
+    });
+
+    it('should be support cssnext', () => {
+      assert.fileContent('package.json', 'postcss-cssnext')
+    })
+  })
 });

@@ -109,13 +109,19 @@ module.exports = class extends Generator {
     this._setDependence(packageSettings, true, inlineStyleTools);
 
     // Add needed loaders if we have special styles
-    let styleConfig = config.getChoiceByKey('style', this.style);
+    const styleConfig = config.getChoiceByKey('style', this.style);
     this._setDependence(packageSettings, false, styleConfig);
 
     // Add postcss module if enabled
-    let postcssConfig = config.getChoiceByKey('postcss', 'postcss');
+    const postcssConfig = config.getChoiceByKey('postcss', 'postcss');
     if (this.postcss) {
       this._setDependence(packageSettings, false, postcssConfig);
+    }
+
+    // Add cssnext module if enabled
+    const cssnextConfig = config.getChoiceByKey('cssnext', 'cssnext');
+    if (this.cssnext) {
+      this._setDependence(packageSettings, false, cssnextConfig);
     }
 
     // Add cssmodules if enabled
