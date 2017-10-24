@@ -61,8 +61,8 @@ module.exports = class extends Generator {
     }
   }
 
-  __copyFromExamples(filePath, fileName, outputName) {
-    const from = path.join(__dirname, 'examples', fileName);
+  _copyFromExamples(filePath, pathFrom, outputName) {
+    const from = path.join(__dirname, 'examples', pathFrom);
     const to = path.join(filePath, outputName);
     this.fs.copy(from, to);
   }
@@ -149,49 +149,49 @@ module.exports = class extends Generator {
           // Copy all from src
           this.fs.copy(from, to);
           if (this.inlineStyleTools) {
-            this.__copyFromExamples(file, `js/${this.inlineStyleTools}-example.js`, 'components/hello-world/index.js')
+            this._copyFromExamples(file, `js/${this.inlineStyleTools}-example.js`, 'index.js')
           }
           if (this.style === 'sass') {
-            this.__copyFromExamples(file, 'styles/sass-example.sass', 'styles/main.sass')
+            this._copyFromExamples(file, 'styles/sass-example.sass', 'styles/main.sass')
           } else if(this.style === 'css') {
-            this.__copyFromExamples(file, 'styles/example.css', 'styles/main.css')
+            this._copyFromExamples(file, 'styles/example.css', 'styles/main.css')
           } else if(this.style === 'scss') {
-            this.__copyFromExamples(file, 'styles/scss-example.scss', 'styles/main.scss')
+            this._copyFromExamples(file, 'styles/scss-example.scss', 'styles/main.scss')
           } else if(this.style === 'less') {
-            this.__copyFromExamples(file, 'styles/less-example.less', 'styles/main.less')
+            this._copyFromExamples(file, 'styles/less-example.less', 'styles/main.less')
           }
           if (this.cssmodules) {
             if (this.style === 'css') {
-              this.__copyFromExamples(file, 'css-modules/css/css.js', 'components/hello-world/index.js');
+              this._copyFromExamples(file, 'css-modules/css/css.js', 'index.js');
             } else if (this.style === 'sass') {
-              this.__copyFromExamples(file, 'css-modules/sass/sass.js', 'components/hello-world/index.js');
+              this._copyFromExamples(file, 'css-modules/sass/sass.js', 'index.js');
             } else if (this.style === 'scss') {
-              this.__copyFromExamples(file, 'css-modules/sass/scss.js', 'components/hello-world/index.js');
+              this._copyFromExamples(file, 'css-modules/sass/scss.js', 'index.js');
             } else if (this.style === 'less') {
-              this.__copyFromExamples(file, 'css-modules/less/less.js', 'componentshello-world/index.js');
+              this._copyFromExamples(file, 'css-modules/less/less.js', 'index.js');
             }
           } else {
             if (this.style === 'css') {
-              this.__copyFromExamples(file, 'js/example.js', 'components/hello-world/index.js');
+              this._copyFromExamples(file, 'js/example.js', 'index.js');
             } else if (this.style === 'sass') {
-              this.__copyFromExamples(file, 'js/sass-example.js', 'components/hello-world/index.js');
+              this._copyFromExamples(file, 'js/sass-example.js', 'index.js');
             } else if (this.style === 'scss') {
-              this.__copyFromExamples(file, 'js/scss-example.js', 'components/hello-world/index.js');
+              this._copyFromExamples(file, 'js/scss-example.js', 'index.js');
             } else if (this.style === 'less') {
-              this.__copyFromExamples(file, 'js/less-example.js', 'components/hello-world/index.js');
+              this._copyFromExamples(file, 'js/less-example.js', 'index.js');
             }
           }
         } else if (file === 'webpack_cfg') {
           // copy all form webpack_cfg
           this.fs.copy(from, to);
           if (this.cssmodules && this.postcss) {
-            this.__copyFromExamples(file, 'loaders/cssmodules/postcss-modules.js', 'loaders.js');
+            this._copyFromExamples(file, 'loaders/cssmodules/postcss-modules.js', 'loaders.js');
           } else if (this.cssmodules) {
-            this.__copyFromExamples(file, 'loaders/cssmodules/loaders.js', 'loaders.js');
+            this._copyFromExamples(file, 'loaders/cssmodules/loaders.js', 'loaders.js');
           } else if (this.postcss) {
-            this.__copyFromExamples(file, 'loaders/cssmodules/postcss.js', 'loaders.js');
+            this._copyFromExamples(file, 'loaders/cssmodules/postcss.js', 'loaders.js');
           } else {
-            this.__copyFromExamples(file, 'loaders/loaders.js', 'loaders.js');
+            this._copyFromExamples(file, 'loaders/loaders.js', 'loaders.js');
           }
         } if (file === 'postcss.config.js') {
           if (this.postcss && this.cssnext) {

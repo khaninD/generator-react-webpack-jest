@@ -37,7 +37,7 @@ module.exports = () => {
               }
             },
             {
-              laoder: 'postcss-loader'
+              loader: 'postcss-loader'
             },
             {
             loader: 'sass-loader'
@@ -58,7 +58,7 @@ module.exports = () => {
               }
             },
             {
-              laoder: 'postcss-loader'
+              loader: 'postcss-loader'
             },
             {
             loader: 'less-loader'
