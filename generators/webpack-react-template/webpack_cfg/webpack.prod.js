@@ -4,6 +4,7 @@ const common = require('../webpack.config.js');
 
 module.exports = merge(common, {
   plugins: [
-    new UglifyJSPlugin()
+    new UglifyJSPlugin(),
+    new ExtractTextPlugin("styles/styles.css")
   ]
 });

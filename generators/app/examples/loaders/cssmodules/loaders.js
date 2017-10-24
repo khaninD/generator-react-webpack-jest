@@ -1,3 +1,4 @@
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = () => {
   return {
     rules: [
@@ -8,43 +9,45 @@ module.exports = () => {
       },
       {
         test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true
+              }
+            }
+          ]
+        })
+      },
+      {
+        test: /\.(scss|sass)$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [{
             loader: 'css-loader',
             options: {
               modules: true
             }
-          }
-        ]
-      },
-      {
-        test: /\.(scss|sass)$/,
-        use: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader',
-          options: {
-            modules: true
-          }
-        }, {
-          loader: 'sass-loader'
-        }]
+          }, {
+            loader: 'sass-loader'
+          }]
+        })
       },
       {
         test: /\.less$/,
-        use: [{
-          loader: "style-loader"
-        }, {
-          loader: "css-loader",
-          options: {
-            modules: true
-          }
-        }, {
-          loader: "less-loader"
-        }]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [{
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          }, {
+            loader: 'less-loader'
+          }]
+        })
       },
       {
         test: /\.(png|jpg|gif|svg)$/,

@@ -5,7 +5,7 @@ import styles from './styles/main.scss';
 class Table extends React.Component {
   render () {
     return <div className="table">
-      <div calssName='row'>
+      <div className='row'>
         <div className='cell'>A0</div>
         <div className='cell'>B0</div>
       </div>

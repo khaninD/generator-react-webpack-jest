@@ -1,3 +1,4 @@
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = () => {
   return {
     rules: [
@@ -8,60 +9,60 @@ module.exports = () => {
       },
       {
         test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true
+              }
+            },
+            {
+              loader: 'postcss-loader'
             }
-          },
-          {
-            loader: 'postcss-loader'
-          }
-        ]
+          ]
+        })
       },
       {
         test: /\.(scss|sass)$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+               modules: true
+              }
+            },
+            {
+              loader: 'postcss-loader'
+            },
+            {
+              loader: 'sass-loader'
             }
-          },
-          {
-            loader: 'postcss-loader'
-          },
-          {
-            loader: 'sass-loader'
-          }
-        ]
+          ]
+        })
       },
       {
         test: /\.less$/,
-        use: [
-          {
-            loader: "style-loader"
-          },
-          {
-            loader: "css-loader",
-            options: {
-              modules: true
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true
+              }
+            },
+            {
+              loader: 'postcss-loader'
+            },
+            {
+              loader: 'less-loader'
             }
-          },
-          {
-            loader: 'postcss-loader'
-          },
-          {
-            loader: "less-loader"
-          }
-        ]
+          ]
+        })
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
