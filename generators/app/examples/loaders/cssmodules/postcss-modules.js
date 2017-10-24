@@ -15,36 +15,53 @@ module.exports = () => {
           {
             loader: 'css-loader',
             options: {
-              modules: false
+              modules: true
             }
+          },
+          {
+            loader: 'postcss-loader'
           }
         ]
       },
       {
         test: /\.(scss|sass)$/,
-        use: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader',
-          options: {
-            modules: false
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          },
+          {
+            loader: 'postcss-loader'
+          },
+          {
+            loader: 'sass-loader'
           }
-        }, {
-          loader: 'sass-loader'
-        }]
+        ]
       },
       {
         test: /\.less$/,
-        use: [{
-          loader: "style-loader"
-        }, {
-          loader: "css-loader",
-          options: {
-            modules: false
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader",
+            options: {
+              modules: true
+            }
+          },
+          {
+            loader: 'postcss-loader'
+          },
+          {
+            loader: "less-loader"
           }
-        }, {
-          loader: "less-loader"
-        }]
+        ]
       },
       {
         test: /\.(png|jpg|gif|svg)$/,

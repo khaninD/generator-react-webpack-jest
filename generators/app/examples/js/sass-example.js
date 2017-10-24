@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styles from './main.sass';
+import styles from './styles/main.sass';
 
 class Table extends React.Component {
   render () {

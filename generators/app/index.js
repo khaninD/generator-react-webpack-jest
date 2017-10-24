@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const { mkdirsSync } = require('mkdir');
 const { yeoman, config } = require('../../utils/all');
-const {firstPrompt, secondPrompt, thirdPrompt} = require('./prompts');
+const {firstPrompt, secondPrompt, thirdPrompt, fourthPrompt} = require('./prompts');
 const baseRootPath = path.dirname(require.resolve('../webpack-react-template'));
 
 module.exports = class extends Generator {
@@ -63,6 +63,9 @@ module.exports = class extends Generator {
 
   __copyFromExamples(filePath, fileName, outputName) {
     const pathToFile = path.join(__dirname, 'examples', fileName);
+    if (filePath === 'postcss.config.js') {
+      console.log(path.join(filePath, outputName))
+    }
     this.fs.copy(pathToFile, path.join(filePath, outputName));
   }
 
@@ -180,11 +183,25 @@ module.exports = class extends Generator {
               this.__copyFromExamples(file, 'js/less-example.js', 'index.js');
             }
           }
-        } else if (file === 'webpack_cfg' && this.cssmodules) {
+        } else if (file === 'webpack_cfg') {
           // copy all form webpack_cfg
           this.fs.copy(from, to);
-          // replace laoders.js
-          this.__copyFromExamples(file, 'loaders/cssmodules/loaders.js', 'loaders.js');
+          if (this.cssmodules && this.postcss) {
+            this.__copyFromExamples(file, 'loaders/cssmodules/postcss-modules.js', 'loaders.js');
+          } else if (this.cssmodules) {
+            this.__copyFromExamples(file, 'loaders/cssmodules/loaders.js', 'loaders.js');
+          } else if (this.postcss) {
+            this.__copyFromExamples(file, 'loaders/cssmodules/postcss.js', 'loaders.js');
+          } else {
+            this.__copyFromExamples(file, 'loaders/loaders.js', 'loaders.js');
+          }
+        } if (file === 'postcss.config.js') {
+          if (this.postcss && this.cssnext) {
+            const pathToFile = path.join(__dirname, 'examples', 'postcss-config/postcss-cssnext.js');
+            this.fs.copy(pathToFile, to);
+          } else if (this.postcss) {
+            this.fs.copy(from, to);
+          }
         } else {
           this.fs.copy(from, to);
         }
