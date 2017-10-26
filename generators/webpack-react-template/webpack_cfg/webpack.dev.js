@@ -10,8 +10,7 @@ module.exports = merge(common, {
     hot: true,
     port: 8080,
     noInfo: false,
-    host: 'localhost',
-    contentBase: path.join(__dirname, "dist")
+    host: 'localhost'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()

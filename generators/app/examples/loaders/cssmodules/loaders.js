@@ -9,45 +9,60 @@ module.exports = () => {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true
+        use: ExtractTextPlugin.extract(
+          {
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: true
+                }
               }
-            }
-          ]
-        })
+            ],
+            publicPath: '/'
+          }
+        )
       },
       {
         test: /\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [{
-            loader: 'css-loader',
-            options: {
-              modules: true
-            }
-          }, {
-            loader: 'sass-loader'
-          }]
-        })
+        use: ExtractTextPlugin.extract(
+          {
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: true
+                }
+              },
+              {
+                loader: 'sass-loader'
+              }
+            ],
+            publicPath: '/'
+          }
+        )
       },
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [{
-            loader: 'css-loader',
-            options: {
-              modules: true
-            }
-          }, {
-            loader: 'less-loader'
-          }]
-        })
+        use: ExtractTextPlugin.extract(
+          {
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: true
+                }
+              },
+              {
+                loader: 'less-loader'
+              }
+            ],
+            publicPath: '/'
+          }
+        )
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -55,7 +70,7 @@ module.exports = () => {
           {
             loader: 'file-loader',
             options: {
-              name: 'img/[name].[ext]?[hash:12]'
+              name: './img/[name].[ext]?[hash:12]'
             }
           }
         ]
@@ -66,7 +81,7 @@ module.exports = () => {
           {
             loader: 'file-loader',
             options: {
-              name: 'fonts/[name].[ext]?[hash:12]'
+              name: './fonts/[name].[ext]?[hash:12]'
             }
           }
         ]

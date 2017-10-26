@@ -21,7 +21,8 @@ module.exports = () => {
             {
               laoder: 'postcss-loader'
             }
-          ]
+          ],
+          publicPath: '/'
         })
       },
       {
@@ -41,7 +42,8 @@ module.exports = () => {
             {
               loader: 'sass-loader'
             }
-          ]
+          ],
+          publicPath: '/'
         })
       },
       {
@@ -61,7 +63,8 @@ module.exports = () => {
             {
               loader: 'less-loader'
             }
-          ]
+          ],
+          publicPath: '/'
         })
       },
       {
@@ -70,7 +73,7 @@ module.exports = () => {
           {
             loader: 'file-loader',
             options: {
-              name: 'img/[name].[ext]?[hash:12]'
+              name: './img/[name].[ext]?[hash:12]'
             }
           }
         ]
@@ -81,7 +84,7 @@ module.exports = () => {
           {
             loader: 'file-loader',
             options: {
-              name: 'fonts/[name].[ext]?[hash:12]'
+              name: './fonts/[name].[ext]?[hash:12]'
             }
           }
         ]

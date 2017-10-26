@@ -9,46 +9,60 @@ module.exports = () => {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: false
+        use: ExtractTextPlugin.extract(
+          {
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: false
+                }
               }
-            }
-          ],
-          publicPath: '/'
-        })
+            ],
+            publicPath: '/'
+          }
+        )
       },
       {
         test: /\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [{
-            loader: 'css-loader',
-            options: {
-              modules: false
-            }
-          }, {
-            loader: 'sass-loader'
-          }]
-        })
+        use: ExtractTextPlugin.extract(
+          {
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: false
+                }
+              },
+              {
+                loader: 'sass-loader'
+              }
+            ],
+            publicPath: '/'
+          }
+        )
       },
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [{
-            loader: 'css-loader',
-            options: {
-              modules: false
-            }
-          }, {
-            loader: 'less-loader'
-          }]
-        })
+        use: ExtractTextPlugin.extract(
+          {
+            fallback: 'style-loader',
+            use: [
+                {
+                loader: 'css-loader',
+                options: {
+                  modules: false
+                }
+              },
+                {
+                loader: 'less-loader'
+              }
+            ],
+            publicPath: '/'
+          }
+        )
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
