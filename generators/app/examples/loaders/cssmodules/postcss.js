@@ -19,7 +19,7 @@ module.exports = () => {
               }
             },
             {
-              loader: 'postcss-loader'
+              laoder: 'postcss-loader'
             }
           ]
         })
@@ -36,10 +36,10 @@ module.exports = () => {
               }
             },
             {
-              loader: 'postcss-loader'
+              laoder: 'postcss-loader'
             },
             {
-              loader: 'sass-loader'
+            loader: 'sass-loader'
             }
           ]
         })
@@ -56,10 +56,10 @@ module.exports = () => {
               }
             },
             {
-              loader: 'postcss-loader'
+              laoder: 'postcss-loader'
             },
             {
-              loader: 'less-loader'
+            loader: 'less-loader'
             }
           ]
         })
@@ -68,9 +68,9 @@ module.exports = () => {
         test: /\.(png|jpg|gif|svg)$/,
         use: [
           {
-            loader: 'url-loader',
+            loader: 'file-loader',
             options: {
-              limit: 8192
+              name: 'img/[name].[ext]?[hash:12]'
             }
           }
         ]
@@ -79,7 +79,10 @@ module.exports = () => {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: [
           {
-            loader: 'file-loader'
+            loader: 'file-loader',
+            options: {
+              name: 'fonts/[name].[ext]?[hash:12]'
+            }
           }
         ]
       }
