@@ -5,7 +5,17 @@ const prompts = require('../../../generators/app/prompts');
 const generatorBase = path.join(__dirname, '../../../generators/app');
 
 let generator;
+const paths = {
+  component: 'src/components/hello-world/index.js',
+  styles: {
+    sass: '\'../../styles/main.sass\'',
+    less: '\'../../styles/main.less\'',
+    scss: '\'../../styles/main.scss\'',
+    css: '\'../../styles/main.css\''
+  }
+};
 
+const {component, styles: {sass, less, scss, css}} = paths;
 /**
  * Global before load function. Run in the before callbacks
  * @param  {Object} customPrompts List of prompts to use
@@ -118,7 +128,7 @@ describe('react-webpack-jest:app with inline styles support', () => {
 
   describe('#content of index.js', () => {
     it('should use radium', () => {
-      assert.fileContent('src/index.js', 'const Component = Radium(Alert);');
+      assert.fileContent(component, 'App = Radium(App);');
     })
   })
 });
@@ -148,7 +158,7 @@ describe('react-webpack-jest:app with sass language', () => {
 
   describe('#content of index.js', () => {
     it('should be support sass', () => {
-      assert.fileContent('src/index.js', 'import styles from \'./styles/main.sass\';')
+      assert.fileContent(component, `import ${sass};`)
     })
   })
 });
@@ -178,7 +188,7 @@ describe('react-webpack-jest:app with less language', () => {
 
   describe('#content of index.js', () => {
     it('should be support less', () => {
-      assert.fileContent('src/index.js', 'import styles from \'./styles/main.less\';')
+      assert.fileContent(component, `import ${less};`)
     })
   })
 });
@@ -208,7 +218,7 @@ describe('react-webpack-jest:app with sass language', () => {
 
   describe('#content of index.js', () => {
     it('should be support scss', () => {
-      assert.fileContent('src/index.js', 'import styles from \'./styles/main.scss\';')
+      assert.fileContent(component, `import ${scss};`)
     })
   })
 });
@@ -232,7 +242,7 @@ describe('react-webpack-jest:app with support cssmodules (css language)', () => 
 
   describe('#content of index.js', () => {
     it('should be support react-css-modules', () => {
-      assert.fileContent('src/index.js', 'Table = CSSModules(Table, styles);')
+      assert.fileContent(component, 'App = CSSModules(App, styles);')
     })
   });
 
@@ -263,11 +273,11 @@ describe('react-webpack-jest:app with support cssmodules (sass language)', () =>
 
   describe('#content of index.js', () => {
     it('should be support react-css-modules', () => {
-      assert.fileContent('src/index.js', 'Table = CSSModules(Table, styles);')
+      assert.fileContent(component, 'App = CSSModules(App, styles);')
     });
 
     it('should be support sass', () => {
-      assert.fileContent('src/index.js', 'import styles from \'./styles/main.sass\';')
+      assert.fileContent(component, `import styles from ${sass};`)
     })
   });
 

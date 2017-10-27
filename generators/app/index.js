@@ -149,7 +149,7 @@ module.exports = class extends Generator {
           // Copy all from src
           this.fs.copy(from, to);
           if (this.inlineStyleTools) {
-            this.__copyFromExamples(file, `js/${this.inlineStyleTools}-example.js`, 'index.js')
+            this.__copyFromExamples(file, `js/${this.inlineStyleTools}-example.js`, 'components/hello-world/index.js')
           }
           if (this.style === 'sass') {
             this.__copyFromExamples(file, 'styles/sass-example.sass', 'styles/main.sass')
