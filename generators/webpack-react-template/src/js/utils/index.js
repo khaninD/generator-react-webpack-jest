@@ -25,6 +25,14 @@ const loadImageAsync = (url) => {
   });
 };
 
+const setScript = (url) => {
+  const script = document.createElement('script');
+  script.src = url;
+  script.async = false;
+  document.body.appendChild(script);
+};
+
 module.exports = {
-  loadImageAsync
-}
+  loadImageAsync,
+  setScript
+};

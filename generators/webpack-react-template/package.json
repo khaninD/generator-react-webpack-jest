@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=dev node server.js",
     "build": "cross-env NODE_ENV=prod node server.js",
-    "lint": "eslint ./* --ext .js --ext .jsx --ignore-path .gitignore",
+    "lint": "eslint --ignore-path .gitignore src/",
     "pretest": "yarn lint --cache",
     "test": "jest",
     "test:coverage": "jest --coverage",
@@ -78,7 +78,11 @@
     ],
     "testEnvironment": "node",
     "testMatch": [
-      "**/test/**/*.test.js"
-    ]
+      "**/__test__/**/*.test.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   }
 }

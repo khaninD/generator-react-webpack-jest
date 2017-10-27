@@ -1,13 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles/main.less';
-import { loadImageAsync } from './js/utils';
-import yeoMan_logo from './images/yeoman.png';
-import webpack_logo from './images/webpack_logo.png';
-import react_logo from './images/react_logo.png';
-import jest_logo from './images/jest_logo.png';
+import React, { Component } from 'react';
+import '../../styles/main.less';
+import { loadImageAsync, setScript } from '../../js/utils';
+import yeoMan_logo from '../../images/yeoman.png';
+import webpack_logo from '../../images/webpack_logo.png';
+import react_logo from '../../images/react_logo.png';
+import jest_logo from '../../images/jest_logo.png';
 
-class App extends React.Component {
+class App extends Component {
   constructor() {
     super();
     this.state = {
@@ -23,10 +22,7 @@ class App extends React.Component {
       jest_logo
     ];
     Promise.all(loadImageAsync(images)).then(images => this.setState({imagesLoad:true}));
-    const script = document.createElement('script');
-    script.src = 'https://buttons.github.io/buttons.js';
-    script.async = false;
-    document.body.appendChild(script);
+    setScript('https://buttons.github.io/buttons.js');
   }
 
   render () {
@@ -52,18 +48,18 @@ class App extends React.Component {
             </div>
 
             <div className='logos_wrapper'>
-              <div className='logos_weapper__webpack'>
-                <img className='logos_wrapper__webpack_logo' src={ webpack_logo } alt='Webpack_logo' />
+              <div>
+                <img src={ webpack_logo } alt='Webpack_logo' />
                 <h3>Webpack 3</h3>
               </div>
 
-              <div className='logos_wrapper__react'>
-                <img className='logos_wrapper__react_logo' src={ react_logo } alt='React_logo' />
+              <div>
+                <img src={ react_logo } alt='React_logo' />
                 <h3>React</h3>
               </div>
 
-              <div className='logos_wrapper__jest'>
-                <img className='logos_wrapper__jest_logo' src={ jest_logo } alt='Jest_logo' />
+              <div>
+                <img src={ jest_logo } alt='Jest_logo' />
                 <h3>Jest</h3>
               </div>
 
@@ -75,4 +71,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+export default App;

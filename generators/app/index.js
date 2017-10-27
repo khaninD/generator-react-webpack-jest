@@ -62,11 +62,9 @@ module.exports = class extends Generator {
   }
 
   __copyFromExamples(filePath, fileName, outputName) {
-    const pathToFile = path.join(__dirname, 'examples', fileName);
-    if (filePath === 'postcss.config.js') {
-      console.log(path.join(filePath, outputName))
-    }
-    this.fs.copy(pathToFile, path.join(filePath, outputName));
+    const from = path.join(__dirname, 'examples', fileName);
+    const to = path.join(filePath, outputName);
+    this.fs.copy(from, to);
   }
 
   _setLerna(packageSettings, defaultSettings) {
@@ -164,23 +162,23 @@ module.exports = class extends Generator {
           }
           if (this.cssmodules) {
             if (this.style === 'css') {
-              this.__copyFromExamples(file, 'css-modules/css/css.js', 'index.js');
+              this.__copyFromExamples(file, 'css-modules/css/css.js', 'components/hello-world/index.js');
             } else if (this.style === 'sass') {
-              this.__copyFromExamples(file, 'css-modules/sass/sass.js', 'index.js');
+              this.__copyFromExamples(file, 'css-modules/sass/sass.js', 'components/hello-world/index.js');
             } else if (this.style === 'scss') {
-              this.__copyFromExamples(file, 'css-modules/sass/scss.js', 'index.js');
+              this.__copyFromExamples(file, 'css-modules/sass/scss.js', 'components/hello-world/index.js');
             } else if (this.style === 'less') {
-              this.__copyFromExamples(file, 'css-modules/less/less.js', 'index.js');
+              this.__copyFromExamples(file, 'css-modules/less/less.js', 'componentshello-world/index.js');
             }
           } else {
             if (this.style === 'css') {
-              this.__copyFromExamples(file, 'js/example.js', 'index.js');
+              this.__copyFromExamples(file, 'js/example.js', 'components/hello-world/index.js');
             } else if (this.style === 'sass') {
-              this.__copyFromExamples(file, 'js/sass-example.js', 'index.js');
+              this.__copyFromExamples(file, 'js/sass-example.js', 'components/hello-world/index.js');
             } else if (this.style === 'scss') {
-              this.__copyFromExamples(file, 'js/scss-example.js', 'index.js');
+              this.__copyFromExamples(file, 'js/scss-example.js', 'components/hello-world/index.js');
             } else if (this.style === 'less') {
-              this.__copyFromExamples(file, 'js/less-example.js', 'index.js');
+              this.__copyFromExamples(file, 'js/less-example.js', 'components/hello-world/index.js');
             }
           }
         } else if (file === 'webpack_cfg') {
